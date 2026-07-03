@@ -5,6 +5,10 @@ const $ = id => document.getElementById(id);
 const canvas = $('stage');
 const ctx = canvas.getContext('2d');
 
+let current = null;
+let scoreHuman = 0, scoreAi = 0, round = 0;
+let roundResolved = true;
+
 function resize() {
   const r = canvas.getBoundingClientRect();
   canvas.width = r.width * devicePixelRatio;
@@ -21,10 +25,6 @@ window.addEventListener('resize', resize);
 resize();
 
 const TYPE_LABEL = { espiral: 'Galaxia espiral', eliptica: 'Galaxia elíptica', irregular: 'Galaxia irregular' };
-
-let current = null;
-let scoreHuman = 0, scoreAi = 0, round = 0;
-let roundResolved = true;
 
 function rand(a, b) { return a + Math.random() * (b - a); }
 function choice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
