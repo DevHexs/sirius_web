@@ -24,6 +24,14 @@
   }
   .wrap{max-width: 1180px; margin: 0 auto;}
   header{margin-bottom: 22px;}
+  .back-btn{
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family:'JetBrains Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); text-decoration: none; margin-bottom: 14px;
+    transition: color .2s;
+  }
+  .back-btn:hover{ color: var(--telemetry); }
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size: 12px; letter-spacing: .18em; color: var(--telemetry);
@@ -118,7 +126,8 @@
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">Club de Astronomía · El poder de la innovación</div>
+    <a href="./index.html" class="back-btn">← Volver al portal</a>
+    <div class="eyebrow">Sirius SAAC · El poder de la innovación</div>
     <h1>Duelo de clasificación: tú vs. la IA</h1>
     <p class="sub">Aparece un objeto observado por telescopio. Clasifícalo antes que la IA.
     Ella solo mide tres números — tú puedes ver la imagen completa. ¿Quién gana más rondas?</p>
