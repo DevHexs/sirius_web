@@ -292,3 +292,114 @@ footer {
   font-size: 12.5px;
   line-height: 1.6;
 }
+
+/* Modo Cadete & Mode Toggles */
+.mode-container {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mode-toggle-btn {
+  background: transparent;
+  color: var(--telemetry);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.mode-toggle-btn:hover {
+  border-color: var(--telemetry);
+  background: rgba(94, 234, 212, 0.05);
+  box-shadow: 0 0 8px rgba(94, 234, 212, 0.15);
+}
+
+.mode-toggle-btn.kids-active {
+  color: var(--flame);
+  border-color: var(--line);
+}
+
+.mode-toggle-btn.kids-active:hover {
+  border-color: var(--flame);
+  background: rgba(255, 107, 53, 0.05);
+  box-shadow: 0 0 8px rgba(255, 107, 53, 0.15);
+}
+
+/* Kids Theme adjustments */
+body.kids-mode {
+  background: radial-gradient(ellipse at 20% -10%, #2A1B40 0%, #0D081A 75%);
+  --telemetry: #FFD23F;
+  --telemetry-glow: rgba(255, 210, 63, 0.2);
+  --line: #4E2A84;
+  --line-hover: #7F53C4;
+  --panel: #1D1135;
+  --panel-2: #281A46;
+  --panel-hover: #311E55;
+  --flame: #FF4D80;
+}
+
+body.kids-mode #launchBtn {
+  background: linear-gradient(180deg, #FF6B8B, #FF4D80);
+  color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(255, 77, 128, 0.4);
+  animation: launch-pulse 2s infinite ease-in-out;
+}
+
+body.kids-mode #launchBtn:hover {
+  animation: launch-wiggle 0.3s ease-in-out infinite;
+  box-shadow: 0 6px 20px rgba(255, 77, 128, 0.6);
+}
+
+body.kids-mode #aiBtn {
+  border-color: #FFD23F;
+  color: #FFD23F;
+}
+
+body.kids-mode #aiBtn:hover {
+  background: rgba(255, 210, 63, 0.1);
+}
+
+body.kids-mode .ai-card {
+  border-color: #FFD23F;
+}
+
+body.kids-mode .ai-badge {
+  background: #FFD23F;
+  color: #1D1135;
+}
+
+body.kids-mode input[type=range] {
+  accent-color: #FF4D80;
+}
+
+body.kids-mode .field label span.val {
+  color: #FFD23F;
+  font-weight: bold;
+}
+
+body.kids-mode .telemetry .value {
+  color: #FFD23F;
+}
+
+@keyframes launch-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@keyframes launch-wiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.5deg); }
+  75% { transform: rotate(1.5deg); }
+  100% { transform: rotate(0deg); }
+}

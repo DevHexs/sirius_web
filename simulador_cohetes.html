@@ -22,26 +22,30 @@
 
   <div class="grid">
     <div class="panel">
-      <h2>Parámetros del cohete</h2>
+      <div class="mode-container">
+        <button id="btnToggleMode" class="mode-toggle-btn" aria-label="Cambiar modo de juego">🔬 Modo Científico</button>
+      </div>
+
+      <h2 id="panelTitle">Parámetros del cohete</h2>
 
       <div class="field">
-        <label for="mass">Masa <span class="val" id="massVal">6 kg</span></label>
+        <label for="mass"><span id="lblMass">Masa</span> <span class="val" id="massVal">6 kg</span></label>
         <input type="range" id="mass" min="2" max="20" step="0.5" value="6" aria-label="Ajustar masa del cohete">
       </div>
       <div class="field">
-        <label for="thrust">Empuje <span class="val" id="thrustVal">220 N</span></label>
+        <label for="thrust"><span id="lblThrust">Empuje</span> <span class="val" id="thrustVal">220 N</span></label>
         <input type="range" id="thrust" min="60" max="450" step="10" value="220" aria-label="Ajustar empuje del cohete">
       </div>
       <div class="field">
-        <label for="burn">Tiempo de quema <span class="val" id="burnVal">2.5 s</span></label>
+        <label for="burn"><span id="lblBurn">Tiempo de quema</span> <span class="val" id="burnVal">2.5 s</span></label>
         <input type="range" id="burn" min="0.5" max="6" step="0.1" value="2.5" aria-label="Ajustar tiempo de quema">
       </div>
       <div class="field">
-        <label for="drag">Arrastre del aire <span class="val" id="dragVal">Medio</span></label>
+        <label for="drag"><span id="lblDrag">Arrastre del aire</span> <span class="val" id="dragVal">Medio</span></label>
         <input type="range" id="drag" min="0" max="3" step="1" value="1" aria-label="Ajustar arrastre del aire">
       </div>
       <div class="field">
-        <label for="angle">Ángulo de lanzamiento <span class="val" id="angleVal">45°</span></label>
+        <label for="angle"><span id="lblAngle">Ángulo de lanzamiento</span> <span class="val" id="angleVal">45°</span></label>
         <input type="range" id="angle" min="10" max="80" step="1" value="45" aria-label="Ajustar ángulo de lanzamiento">
       </div>
 
@@ -54,10 +58,10 @@
     <div class="panel canvas-panel">
       <canvas id="stage" aria-label="Área de simulación gráfica del vuelo del cohete"></canvas>
       <div class="telemetry">
-        <div class="cell"><div class="label">Apogeo</div><div class="value" id="tApogee" aria-live="polite">— m</div></div>
-        <div class="cell"><div class="label">Alcance</div><div class="value" id="tRange" aria-live="polite">— m</div></div>
-        <div class="cell"><div class="label">Vel. máxima</div><div class="value" id="tVel" aria-live="polite">— m/s</div></div>
-        <div class="cell"><div class="label">Tiempo de vuelo</div><div class="value" id="tTime" aria-live="polite">— s</div></div>
+        <div class="cell"><div class="label" id="lblApogee">Apogeo</div><div class="value" id="tApogee" aria-live="polite">— m</div></div>
+        <div class="cell"><div class="label" id="lblRange">Alcance</div><div class="value" id="tRange" aria-live="polite">— m</div></div>
+        <div class="cell"><div class="label" id="lblVel">Vel. máxima</div><div class="value" id="tVel" aria-live="polite">— m/s</div></div>
+        <div class="cell"><div class="label" id="lblTime">Tiempo de vuelo</div><div class="value" id="tTime" aria-live="polite">— s</div></div>
       </div>
     </div>
   </div>

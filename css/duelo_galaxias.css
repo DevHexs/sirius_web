@@ -398,3 +398,86 @@ footer {
   font-size: 12.5px;
   line-height: 1.6;
 }
+
+/* Kids Theme adjustments (Modo Cadete) */
+body.kids-mode {
+  background: radial-gradient(ellipse at 20% -10%, #2A1B40 0%, #0D081A 75%);
+  --telemetry: #FFD23F;
+  --telemetry-glow: rgba(255, 210, 63, 0.2);
+  --line: #4E2A84;
+  --line-hover: #7F53C4;
+  --panel: #1D1135;
+  --panel-2: #281A46;
+  --panel-hover: #311E55;
+  --flame: #FF4D80;
+}
+
+body.kids-mode .score {
+  background: #281A46;
+  border-color: #4E2A84;
+}
+
+body.kids-mode .score .n {
+  color: #FFD23F;
+}
+
+body.kids-mode .score.human .n {
+  color: #FF4D80;
+}
+
+body.kids-mode button#genBtn {
+  background: linear-gradient(180deg, #FF6B8B, #FF4D80);
+  color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(255, 77, 128, 0.4);
+}
+
+body.kids-mode button#genBtn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 20px rgba(255, 77, 128, 0.6);
+}
+
+body.kids-mode .classify-btns button {
+  border-color: #4E2A84;
+}
+
+body.kids-mode .classify-btns button:not(:disabled):hover {
+  background: #311E55;
+  border-color: #7F53C4;
+}
+
+body.kids-mode .telemetry .cell {
+  border-color: #4E2A84;
+}
+
+body.kids-mode .telemetry .value {
+  color: #FFD23F;
+}
+
+body.kids-mode .result-card {
+  border-color: #FFD23F;
+}
+
+body.kids-mode .truth-banner {
+  color: #FFD23F;
+  border-bottom-color: #4E2A84;
+}
+
+body.kids-mode #revealBtn {
+  border-color: #FFD23F;
+  color: #FFD23F;
+}
+
+body.kids-mode #revealBtn:hover {
+  background: rgba(255, 210, 63, 0.1);
+}
+
+body.kids-mode #caveat {
+  border-left-color: #FFD23F;
+  background: #281A46;
+  color: #E7ECF3;
+}
+
+body.kids-mode #nextBtn {
+  background: linear-gradient(180deg, #FFD23F, #E0B426);
+  color: #1D1135;
+}

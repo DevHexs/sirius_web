@@ -380,6 +380,7 @@ function updateTelemetryDisplay(obj) {
 function setMode(mode) {
   currentMode = mode;
   const btn = $('btnToggleMode');
+  const body = document.body;
   
   // Dynamic update of labels (checking if they exist defensively)
   const lblEllip = $('lblEllip');
@@ -387,6 +388,7 @@ function setMode(mode) {
   const lblAsym = $('lblAsym');
 
   if (mode === 'normal') {
+    body.classList.remove('kids-mode');
     if (btn) {
       btn.textContent = '🔬 Modo Científico';
       btn.classList.remove('kids-active');
@@ -395,6 +397,7 @@ function setMode(mode) {
     if (lblArm) lblArm.textContent = 'Contraste de brazos';
     if (lblAsym) lblAsym.textContent = 'Asimetría';
   } else {
+    body.classList.add('kids-mode');
     if (btn) {
       btn.textContent = '🚀 Modo Cadete';
       btn.classList.add('kids-active');
