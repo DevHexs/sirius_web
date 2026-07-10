@@ -29,49 +29,136 @@ const TYPE_LABEL = { espiral: 'Galaxia espiral', eliptica: 'Galaxia elíptica', 
 function rand(a, b) { return a + Math.random() * (b - a); }
 function choice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-function generateObject() {
-  const type = choice(['espiral', 'espiral', 'eliptica', 'irregular']); // spiral a bit more common (more edge-cases)
-  const obj = { type, seed: Math.random() * 9999 };
-
-  if (type === 'eliptica') {
-    obj.axisRatio = rand(0.55, 0.95);       // b/a, mild flattening
-    obj.colorIndex = rand(0.55, 0.9);       // redder
-    obj.size = rand(70, 95);
-  } else if (type === 'espiral') {
-    obj.inclination = rand(0, 1);            // 0 face-on .. 1 edge-on
-    // bias toward edge-cases sometimes
-    if (Math.random() < 0.4) obj.inclination = rand(0.7, 1);
-    obj.dust = rand(0.3, 1);
-    obj.armTightness = rand(0.25, 0.5);
-    obj.bulgeSize = rand(0.15, 0.35);
-    obj.colorIndex = rand(0.1, 0.4);        // bluer
-    obj.size = rand(75, 100);
-  } else {
-    obj.asymmetry = rand(0.45, 0.9);
-    obj.clumps = Math.floor(rand(4, 8));
-    obj.colorIndex = rand(0.15, 0.45);
-    obj.size = rand(60, 85);
+const REAL_GALAXIES = [
+  {
+    name: 'NGC 1300',
+    type: 'espiral',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0501a.jpg',
+    features: { ellipticity: 0.15, armContrast: 0.78, asymmetry: 0.08 },
+    caveat: 'La IA midió un bajo nivel de asimetría, baja elipticidad y un contraste de brazos muy marcado, clasificándola correctamente como espiral. NGC 1300 es el prototipo perfecto de galaxia espiral barrada.'
+  },
+  {
+    name: 'M101 (Galaxia del Molinete)',
+    type: 'espiral',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0602a.jpg',
+    features: { ellipticity: 0.04, armContrast: 0.85, asymmetry: 0.06 },
+    caveat: 'Al estar orientada completamente de frente, su redondez (baja elipticidad) y el altísimo contraste de sus brazos permitieron que la IA acertara de forma contundente.'
+  },
+  {
+    name: 'M104 (Galaxia del Sombrero)',
+    type: 'espiral',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0328a.jpg',
+    features: { ellipticity: 0.65, armContrast: 0.12, asymmetry: 0.05 },
+    caveat: '¡La IA falló! Midió una elipticidad muy alta (0.65) por la inclinación y un bajo contraste de brazos porque están comprimidos de canto. La IA la clasificó como elíptica. Sin embargo, tus ojos humanos pudieron identificar el disco oscuro de polvo que cruza el centro, característico de una espiral vista casi de canto.'
+  },
+  {
+    name: 'M51 (Galaxia del Remolino)',
+    type: 'espiral',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0506a.jpg',
+    features: { ellipticity: 0.10, armContrast: 0.88, asymmetry: 0.38 },
+    caveat: '¡La IA falló! Midió una asimetría global elevada (0.38) debido a la presencia de la galaxia compañera (NGC 5195) a un lado, catalogándola como "irregular". Los humanos reconocemos de inmediato la majestuosa estructura espiral de la galaxia principal.'
+  },
+  {
+    name: 'NGC 6946 (Galaxia de los Fuegos Artificiales)',
+    type: 'espiral',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw2101a.jpg',
+    features: { ellipticity: 0.06, armContrast: 0.82, asymmetry: 0.12 },
+    caveat: 'El gran contraste de sus brazos y su forma circular al estar orientada de frente le permitieron al clasificador de la IA catalogarla correctamente como espiral. Se le apoda galaxia de los fuegos artificiales debido a su alta frecuencia de supernovas.'
+  },
+  {
+    name: 'M87',
+    type: 'eliptica',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0815f.jpg',
+    features: { ellipticity: 0.05, armContrast: 0.02, asymmetry: 0.03 },
+    caveat: 'La IA midió una forma casi circular, nula estructura de brazos y bajísima asimetría, acertando que es elíptica. M87 es una galaxia elíptica gigante que alberga uno de los agujeros negros más masivos conocidos.'
+  },
+  {
+    name: 'NGC 4660',
+    type: 'eliptica',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0815b.jpg',
+    features: { ellipticity: 0.48, armContrast: 0.03, asymmetry: 0.04 },
+    caveat: 'A pesar de estar notablemente estirada, la elipticidad medida (0.48) no superó el umbral crítico de la IA para catalogarla directamente, pero la ausencia total de brazos la colocó correctamente en el grupo elíptico.'
+  },
+  {
+    name: 'NGC 1132',
+    type: 'eliptica',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0804a.jpg',
+    features: { ellipticity: 0.58, armContrast: 0.04, asymmetry: 0.05 },
+    caveat: 'Con una elipticidad alta de 0.58 y sin estructura de brazos, el clasificador de la IA determinó sin problemas que es una elíptica. Se la conoce como un "fósil cósmico", el resultado de múltiples fusiones galácticas.'
+  },
+  {
+    name: 'M60',
+    type: 'eliptica',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic1419b.jpg',
+    features: { ellipticity: 0.22, armContrast: 0.03, asymmetry: 0.05 },
+    caveat: 'La IA midió una forma ovalada pero sumamente uniforme (baja elipticidad, nulo contraste de brazos y bajísima asimetría), catalogándola correctamente como elíptica. Es una de las galaxias elípticas gigantes más masivas en el Cúmulo de Virgo.'
+  },
+  {
+    name: 'M59 (Messier 59)',
+    type: 'eliptica',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw1921a.jpg',
+    features: { ellipticity: 0.35, armContrast: 0.02, asymmetry: 0.04 },
+    caveat: 'La IA la clasificó de manera correcta como elíptica al medir una elipticidad moderada (0.35) pero con niveles insignificantes de asimetría y estructura de brazos.'
+  },
+  {
+    name: 'NGC 4449',
+    type: 'irregular',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic1203a.jpg',
+    features: { ellipticity: 0.22, armContrast: 0.15, asymmetry: 0.42 },
+    caveat: 'La IA detectó una asimetría muy por encima del límite (0.42), logrando clasificarla correctamente como irregular. NGC 4449 tiene una tasa altísima de formación estelar, lo que le da su forma caótica y azulada.'
+  },
+  {
+    name: 'NGC 1427A',
+    type: 'irregular',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0509a.jpg',
+    features: { ellipticity: 0.35, armContrast: 0.12, asymmetry: 0.48 },
+    caveat: 'Esta galaxia está siendo despedazada por la gravedad de un cúmulo cercano. La IA identificó la gran asimetría (0.48) causada por este efecto y acertó la clasificación.'
+  },
+  {
+    name: 'IC 4710',
+    type: 'irregular',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw1818a.jpg',
+    features: { ellipticity: 0.18, armContrast: 0.14, asymmetry: 0.32 },
+    caveat: '¡La IA falló! Midió una asimetría global de 0.32, por debajo del umbral de 0.35. Como no tiene brazos definidos ni elipticidad alta, la IA asumió que es elíptica. Sin embargo, visualmente carece de la concentración central simétrica de una elíptica y muestra nubes caóticas de formación estelar.'
+  },
+  {
+    name: 'AM 0644-741 (Anillo de Lindsay-Shapley)',
+    type: 'irregular',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0415a.jpg',
+    features: { ellipticity: 0.38, armContrast: 0.15, asymmetry: 0.44 },
+    caveat: '¡La IA acertó! Catalogó esta estructura peculiar como irregular debido a su alta asimetría (0.44), generada por una colisión cósmica que empujó el núcleo y expandió un anillo de gas y estrellas jóvenes.'
+  },
+  {
+    name: 'IC 10',
+    type: 'irregular',
+    imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw1924a.jpg',
+    features: { ellipticity: 0.20, armContrast: 0.12, asymmetry: 0.41 },
+    caveat: 'La IA detectó una asimetría por encima del umbral (0.41), clasificándola de forma correcta como irregular. IC 10 es una galaxia enana starburst con una densidad de estrellas masivas en formación inusualmente alta.'
   }
-  return obj;
+];
+
+let lastGalaxy = null;
+let shownGalaxies = [];
+
+function generateObject() {
+  if (shownGalaxies.length >= REAL_GALAXIES.length) {
+    shownGalaxies = [];
+  }
+
+  const available = REAL_GALAXIES.filter(g => !shownGalaxies.includes(g.name));
+
+  let galaxy;
+  do {
+    galaxy = choice(available);
+  } while (galaxy === lastGalaxy && available.length > 1);
+
+  lastGalaxy = galaxy;
+  shownGalaxies.push(galaxy.name);
+  return JSON.parse(JSON.stringify(galaxy));
 }
 
 function computeFeatures(obj) {
-  let ellipticity, armContrast, asymmetry;
-  if (obj.type === 'eliptica') {
-    ellipticity = 1 - obj.axisRatio;
-    armContrast = rand(0.02, 0.1);
-    asymmetry = rand(0.03, 0.12);
-  } else if (obj.type === 'espiral') {
-    const squish = Math.cos(obj.inclination * Math.PI / 2);
-    ellipticity = 1 - squish;
-    armContrast = Math.max(0.05, 0.6 * (1 - obj.inclination) + rand(-0.05, 0.05));
-    asymmetry = rand(0.03, 0.14);
-  } else {
-    ellipticity = rand(0.05, 0.25);
-    armContrast = rand(0.02, 0.08);
-    asymmetry = obj.asymmetry;
-  }
-  return { ellipticity, armContrast, asymmetry };
+  return obj.features;
 }
 
 function aiClassify(f) {
@@ -92,116 +179,134 @@ function starfield(w, h) {
   }
 }
 
+const imageCache = {};
+
 function drawObject(obj) {
   const rect = canvas.getBoundingClientRect();
   const w = rect.width, h = rect.height;
   ctx.clearRect(0, 0, w, h);
   starfield(w, h);
-  const cx = w / 2, cy = h / 2;
 
-  if (obj.type === 'eliptica') {
-    const R = obj.size;
-    const ratio = obj.axisRatio;
-    const hue = obj.colorIndex > 0.7 ? '255,200,150' : '255,225,190';
-    for (let i = 8; i > 0; i--) {
-      const t = i / 8;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, R * t, R * t * ratio, 0, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${hue}, ${0.06 + (1 - t) * 0.05})`;
-      ctx.fill();
-    }
-    ctx.beginPath();
-    ctx.ellipse(cx, cy, R * 0.15, R * 0.15 * ratio, 0, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,240,220,0.9)';
-    ctx.fill();
-  }
+  if (!obj.imageUrl) return;
 
-  else if (obj.type === 'espiral') {
-    const squish = Math.max(0.08, Math.cos(obj.inclination * Math.PI / 2));
-    const R = obj.size;
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.scale(1, squish);
-
-    // faint disk
-    const diskGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, R);
-    diskGrad.addColorStop(0, 'rgba(190,210,255,0.35)');
-    diskGrad.addColorStop(1, 'rgba(120,150,255,0)');
-    ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI * 2);
-    ctx.fillStyle = diskGrad; ctx.fill();
-
-    // spiral arms
-    ctx.strokeStyle = 'rgba(180,205,255,0.55)';
-    for (let arm = 0; arm < 2; arm++) {
-      ctx.beginPath();
-      const offset = arm * Math.PI;
-      for (let a = 0; a < Math.PI * 2.4; a += 0.05) {
-        const radius = (a / (Math.PI * 2.4)) * R;
-        const ang = a + offset;
-        const px = radius * Math.cos(ang);
-        const py = radius * Math.sin(ang);
-        if (a === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  let img = imageCache[obj.imageUrl];
+  if (!img) {
+    img = new Image();
+    img.src = obj.imageUrl;
+    imageCache[obj.imageUrl] = img;
+    img.onload = () => {
+      if (current === obj) {
+        drawObject(obj);
       }
-      ctx.lineWidth = 5;
-      ctx.stroke();
-    }
-    // star-forming knots along arms
-    ctx.fillStyle = 'rgba(210,225,255,0.8)';
-    for (let i = 0; i < 14; i++) {
-      const a = rand(0, Math.PI * 2.4);
-      const radius = (a / (Math.PI * 2.4)) * R;
-      const arm = i % 2 === 0 ? 0 : Math.PI;
-      const ang = a + arm;
-      ctx.beginPath();
-      ctx.arc(radius * Math.cos(ang), radius * Math.sin(ang), 1.6, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    // bulge
-    ctx.beginPath();
-    ctx.arc(0, 0, R * obj.bulgeSize, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,235,210,0.85)';
-    ctx.fill();
-    ctx.restore();
+    };
 
-    // dust lane, drawn unscaled for a crisp thin edge-on streak
-    if (obj.inclination > 0.6 && obj.dust > 0.5) {
-      const lw = 2 + obj.dust * 2.5;
-      ctx.strokeStyle = `rgba(30,18,14,${0.5 + obj.dust * 0.3})`;
-      ctx.lineWidth = lw;
-      ctx.beginPath();
-      ctx.moveTo(cx - R * 0.9, cy);
-      ctx.lineTo(cx + R * 0.9, cy);
-      ctx.stroke();
-    }
+    ctx.fillStyle = 'rgba(10, 15, 25, 0.7)';
+    ctx.fillRect(0, 0, w, h);
+    ctx.font = '500 13px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#5EEAD4';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('ADQUIRIENDO SEÑAL DE TELESCOPIO...', w / 2, h / 2);
+    return;
   }
 
-  else { // irregular
-    const R = obj.size;
-    ctx.save();
-    ctx.translate(cx, cy);
-    // diffuse asymmetric base
-    const shiftX = (Math.random() - 0.5) * R * obj.asymmetry * 0.6;
-    const shiftY = (Math.random() - 0.5) * R * obj.asymmetry * 0.6;
-    const grad = ctx.createRadialGradient(shiftX, shiftY, 0, 0, 0, R);
-    grad.addColorStop(0, 'rgba(170,210,255,0.3)');
-    grad.addColorStop(1, 'rgba(170,210,255,0)');
-    ctx.beginPath(); ctx.ellipse(shiftX * 0.3, shiftY * 0.3, R * 0.9, R * 0.7, 0.3, 0, Math.PI * 2);
-    ctx.fillStyle = grad; ctx.fill();
-    // clumps
-    for (let i = 0; i < obj.clumps; i++) {
-      const ang = rand(0, Math.PI * 2);
-      const dist = rand(0, R * 0.8) * obj.asymmetry;
-      const px = Math.cos(ang) * dist + shiftX * 0.5;
-      const py = Math.sin(ang) * dist + shiftY * 0.5;
-      const rr = rand(6, 16);
-      const grad2 = ctx.createRadialGradient(px, py, 0, px, py, rr);
-      grad2.addColorStop(0, 'rgba(200,225,255,0.85)');
-      grad2.addColorStop(1, 'rgba(200,225,255,0)');
-      ctx.beginPath(); ctx.arc(px, py, rr, 0, Math.PI * 2);
-      ctx.fillStyle = grad2; ctx.fill();
-    }
-    ctx.restore();
+  if (!img.complete) {
+    ctx.fillStyle = 'rgba(10, 15, 25, 0.7)';
+    ctx.fillRect(0, 0, w, h);
+    ctx.font = '500 13px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#5EEAD4';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('DESENCRIPTANDO DATOS DE IMAGEN...', w / 2, h / 2);
+    return;
   }
+
+  const imgRatio = img.width / img.height;
+  const canvasRatio = w / h;
+  let dw, dh, dx, dy;
+  if (imgRatio > canvasRatio) {
+    dh = h;
+    dw = h * imgRatio;
+    dx = (w - dw) / 2;
+    dy = 0;
+  } else {
+    dw = w;
+    dh = w / imgRatio;
+    dx = 0;
+    dy = (h - dh) / 2;
+  }
+
+  ctx.drawImage(img, dx, dy, dw, dh);
+  drawHud(w, h, obj);
+}
+
+function drawHud(w, h, obj) {
+  // Vignette
+  const vignette = ctx.createRadialGradient(w/2, h/2, Math.min(w, h) * 0.4, w/2, h/2, Math.max(w, h) * 0.7);
+  vignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
+  vignette.addColorStop(1, 'rgba(10, 15, 25, 0.85)');
+  ctx.fillStyle = vignette;
+  ctx.fillRect(0, 0, w, h);
+
+  // Reticle circle
+  ctx.strokeStyle = 'rgba(94, 234, 212, 0.25)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(w/2, h/2, Math.min(w, h) * 0.38, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Corner brackets
+  const pad = 15;
+  const len = 12;
+  ctx.strokeStyle = 'rgba(94, 234, 212, 0.4)';
+  ctx.lineWidth = 1.5;
+  
+  // Top-left
+  ctx.beginPath();
+  ctx.moveTo(pad + len, pad); ctx.lineTo(pad, pad); ctx.lineTo(pad, pad + len);
+  ctx.stroke();
+  
+  // Top-right
+  ctx.beginPath();
+  ctx.moveTo(w - pad - len, pad); ctx.lineTo(w - pad, pad); ctx.lineTo(w - pad, pad + len);
+  ctx.stroke();
+  
+  // Bottom-left
+  ctx.beginPath();
+  ctx.moveTo(pad + len, h - pad); ctx.lineTo(pad, h - pad); ctx.lineTo(pad, h - pad + len);
+  ctx.stroke();
+  
+  // Bottom-right
+  ctx.beginPath();
+  ctx.moveTo(w - pad - len, h - pad); ctx.lineTo(w - pad, h - pad); ctx.lineTo(w - pad, h - pad + len);
+  ctx.stroke();
+
+  // Crosshairs
+  ctx.strokeStyle = 'rgba(94, 234, 212, 0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(w/2 - 25, h/2); ctx.lineTo(w/2 - 8, h/2);
+  ctx.moveTo(w/2 + 8, h/2); ctx.lineTo(w/2 + 25, h/2);
+  ctx.moveTo(w/2, h/2 - 25); ctx.lineTo(w/2, h/2 - 8);
+  ctx.moveTo(w/2, h/2 + 8); ctx.lineTo(w/2, h/2 + 25);
+  ctx.stroke();
+
+  // HUD Text
+  ctx.font = '600 10px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#5EEAD4';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText(`QUEUE: ${shownGalaxies.length}/${REAL_GALAXIES.length}`, pad + 8, pad + 8);
+  
+  ctx.textAlign = 'right';
+  ctx.fillText(`OBJ: ${obj.name.toUpperCase()}`, w - pad - 8, pad + 8);
+
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('RES: 1024x768', pad + 8, h - pad - 8);
+
+  ctx.textAlign = 'right';
+  ctx.fillText('FOV: 0.15°', w - pad - 8, h - pad - 8);
 }
 
 function fmt(n) { return n.toFixed(2); }
@@ -222,22 +327,10 @@ function newRound() {
 }
 
 function caveatText(obj, aiGuess, truth) {
-  if (truth === 'espiral' && aiGuess === 'eliptica') {
-    return 'La IA solo midió qué tan alargada (elipticidad) y qué tan brillante en contraste (brazos) se ve la imagen. '
-      + 'A alta inclinación, un disco espiral proyectado de canto se ve casi tan alargado como una elíptica, y sus brazos '
-      + 'quedan comprimidos y difíciles de medir. Ustedes en cambio pudieron notar la línea oscura de polvo cruzando el centro — '
-      + 'una pista clásica de disco visto de canto que la IA nunca buscó.';
+  if (obj && obj.caveat) {
+    return obj.caveat;
   }
-  if (truth === 'irregular' && aiGuess !== 'irregular') {
-    return 'La IA solo revisó un umbral de asimetría. Las galaxias irregulares reales varían muchísimo en forma, '
-      + 'y un solo número no siempre alcanza a distinguir un objeto genuinamente caótico de uno solo un poco inclinado.';
-  }
-  if (truth === 'eliptica' && aiGuess === 'espiral') {
-    return 'La IA detectó algo de contraste de brillo y lo interpretó como brazos espirales, pero una elíptica '
-      + 'con ruido en su brillo puede producir el mismo número sin tener ninguna estructura real girando.';
-  }
-  return 'En esta ronda la IA acertó — pero recuerden: acertar con métricas simples no significa que "entienda" '
-    + 'la física del objeto. Con otro objeto, esas mismas reglas pueden fallar.';
+  return 'En esta ronda la IA acertó — pero recuerden: acertar con métricas simples no significa que "entienda" la física del objeto. Con otro objeto, esas mismas reglas pueden fallar.';
 }
 
 function resolveRound(humanGuess) {
