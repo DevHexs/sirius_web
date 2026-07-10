@@ -481,3 +481,53 @@ body.kids-mode #nextBtn {
   background: linear-gradient(180deg, #FFD23F, #E0B426);
   color: #1D1135;
 }
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 580px) {
+  body {
+    padding: 12px 10px 40px;
+  }
+  
+  header {
+    margin-bottom: 16px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .sub {
+    font-size: 13.5px;
+  }
+  
+  #stage {
+    height: 280px;
+  }
+  
+  .telemetry {
+    grid-template-columns: 1fr;
+  }
+  
+  .telemetry .cell {
+    padding: 10px 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  
+  .telemetry .cell:last-child {
+    border-bottom: none;
+  }
+  
+  .telemetry .value {
+    font-size: 16px;
+  }
+  
+  button {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  body.kids-mode .telemetry .cell {
+    border-bottom-color: #4E2A84;
+  }
+}
