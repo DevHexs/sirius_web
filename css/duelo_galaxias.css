@@ -70,6 +70,47 @@ h1 {
   margin-bottom: 18px;
 }
 
+.mode-container {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mode-toggle-btn {
+  background: transparent;
+  color: var(--telemetry);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.mode-toggle-btn:hover {
+  border-color: var(--telemetry);
+  background: rgba(94, 234, 212, 0.05);
+  box-shadow: 0 0 8px rgba(94, 234, 212, 0.15);
+}
+
+.mode-toggle-btn.kids-active {
+  color: var(--flame);
+  border-color: var(--line);
+}
+
+.mode-toggle-btn.kids-active:hover {
+  border-color: var(--flame);
+  background: rgba(255, 107, 53, 0.05);
+  box-shadow: 0 0 8px rgba(255, 107, 53, 0.15);
+}
+
 .score {
   flex: 1;
   text-align: center;
