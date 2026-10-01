@@ -284,10 +284,11 @@ function detectivePanel(){
     var lead=d.gaveUp
       ?'<div class="hintbox"><div class="big">Era una estrella tipo '+c.k+'.</div>Revisa cómo se ven sus líneas y prueba con otra.</div>'
       :'<div class="hintbox good"><div class="big">¡Correcto! Es tipo '+c.k+'.</div>'+(d.tries===1?'La adivinaste a la primera.':'Ya la tienes.')+'</div>';
-    return cardHTML(d.idx,posToT(d.pos),lead);
+    return cardHTML(d.idx,posToT(d.pos),lead)+'<button type="button" class="btn again" id="again">Probar otra estrella</button>';
   }
   var body='<h2>¿Qué tipo de estrella es?</h2>'+
     '<p>Mira los colores y las líneas oscuras del espectro. Después elige una letra.</p>'+
+    '<p class="guess-count">'+d.wrong.length+' de 6 opciones descartadas</p>'+
     '<p>Si te trabas, abre la <a href="#guia">guía de pistas</a> o pide ver el color de la estrella.</p>';
   if(d.wrong.length){
     var g=d.wrong[d.wrong.length-1];
@@ -305,6 +306,16 @@ function render(){
   var det=state.mode==='detective',d=state.d;
   var pos=curPos(),T=posToT(pos),idx=posToIdx(pos),hid=detHidden();
   var rgb=starRGB(T);
+  root.dataset.mode=state.mode;
+  root.dataset.revealed=String(!hid);
+  var mobileFeedback=$('#mobileFeedback');
+  if(det){
+    if(d.done)mobileFeedback.textContent=d.gaveUp?'Era tipo '+CLS[d.idx].k+'. Revisa las pistas y prueba otra estrella.':'Correcto: es tipo '+CLS[d.idx].k+'. Puedes revisar sus pistas abajo.';
+    else if(d.wrong.length){
+      var lastWrong=d.wrong[d.wrong.length-1];
+      mobileFeedback.textContent='No es '+CLS[lastWrong].k+'. Busca una estrella '+(lastWrong<d.idx?'más fría':'más caliente')+'.'+(d.wrong.length>=2?' Pista: '+CLS[d.idx].find:'');
+    }else mobileFeedback.textContent=d.hint?'Ya puedes ver su color. Compáralo con el espectro y elige una letra.':'Observa las líneas oscuras del espectro y elige una letra.';
+  }else mobileFeedback.textContent='Tipo '+CLS[idx].k+' · '+fmt(round3(T))+' K. '+CLS[idx].find;
 
   // Estrella
   var showColor=!hid||d.hint;
@@ -362,6 +373,11 @@ function render(){
     if(hid){cur.setAttribute('visibility','hidden');}
     else{var x=PX(pos);cur.setAttribute('visibility','visible');cur.setAttribute('x1',x);cur.setAttribute('x2',x);}
   }
+  [].forEach.call(document.querySelectorAll('.payne-mobile [data-i]'),function(row){
+    var current=!hid&&Number(row.dataset.i)===idx;
+    row.classList.toggle('current',current);
+    if(current)row.setAttribute('aria-current','true');else row.removeAttribute('aria-current');
+  });
 }
 
 /* ---------------- Interacción ---------------- */
@@ -434,6 +450,11 @@ btnReveal.addEventListener('click',function(){
   render();
 });
 btnNext.addEventListener('click',function(){newMystery(false);});
+panel.addEventListener('click',function(e){
+  if(!e.target.closest('#again'))return;
+  newMystery(false);
+  $('#clasificar').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+});
 curveChk.addEventListener('change',function(){state.curve=curveChk.checked;curveHelp.hidden=!state.curve;render();});
 $('#clasificar').addEventListener('pointerdown',cancelAnim,true);
 watch(stripEl,function(){render();});
@@ -504,6 +525,10 @@ function PY(v){return PY1-(PY1-PY0)*v;}
   });
   s+='<line id="pcur" class="cur" x1="'+PX(4.5)+'" x2="'+PX(4.5)+'" y1="'+(PY0-8)+'" y2="'+PY1+'"/>';
   s+='</svg>';
+  var signatures=['Helio ionizado (He⁺)','Helio','Hidrógeno','Hidrógeno y calcio','Calcio y metales','Metales','Bandas de TiO'];
+  s+='<ol class="payne-mobile" aria-label="Huellas espectrales principales por tipo">'+signatures.map(function(label,i){
+    return '<li data-i="'+i+'"><b>'+CLS[i].k+'</b><span>'+label+'</span></li>';
+  }).join('')+'</ol>';
   $('#payne').innerHTML=s;
 })();
 

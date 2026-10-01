@@ -16,6 +16,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
         <button class="btn red-mode" id="redMode" type="button" aria-pressed="false">Activar luz roja</button>
       </div>
       <p class="lead">Descubre cómo funciona un telescopio, qué dice la física y cómo elegir el primero sin gastar de más.</p>
+      <a class="start-link" href="#numeros">Probar telescopios</a>
       <nav class="nav" aria-label="Secciones">
         <a href="#como">Cómo funciona</a>
         <a href="#numeros">Los números</a>
@@ -23,6 +24,16 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
         <a href="#monturas">Monturas</a>
         <a href="#elige">Elige el tuyo</a>
       </nav>
+      <details class="mobile-nav">
+        <summary>Ir a una sección</summary>
+        <nav aria-label="Secciones de telescopios">
+          <a href="#como">Cómo funciona</a>
+          <a href="#numeros">Los números</a>
+          <a href="#nitidez">Ver más fino</a>
+          <a href="#monturas">Monturas</a>
+          <a href="#elige">Elige el tuyo</a>
+        </nav>
+      </details>
     </header>
     
     <main>
@@ -39,10 +50,11 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
         </div>
     
         <div class="bench" id="optBench"></div>
+        <p class="opt-path" id="optPath"></p>
     
         <div class="optbar">
           <label class="chk" id="chromWrap"><input type="checkbox" id="chrom"> Ver la aberración cromática</label>
-          <span class="lbl2 opt-hint" id="optHint">Los rayos amarillos son la luz de la estrella. Vienen paralelos porque la estrella está muy lejos.</span>
+          <span class="lbl2 opt-hint" id="optHint">Los rayos representan la luz de la estrella. Vienen paralelos porque la estrella está muy lejos.</span>
         </div>
     
         <div class="two optinfo">
@@ -69,13 +81,17 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
     
         <div class="calc">
           <div>
+            <div class="quicklook">
+              <canvas id="viewMini" width="120" height="120" aria-hidden="true"></canvas>
+              <div><strong id="quickTitle"></strong><span id="quickSpec"></span></div>
+            </div>
             <span class="lbl2">Modelos de ejemplo</span>
-            <div class="seg presets" id="presets">
-              <button type="button" data-d="70" data-f="700">Refractor de 70 mm</button>
-              <button type="button" data-d="130" data-f="650">Newtoniano de 130 mm</button>
-              <button type="button" data-d="127" data-f="1500">Maksutov de 127 mm</button>
-              <button type="button" data-d="200" data-f="1200">Dobsoniano de 200 mm</button>
-              <button type="button" data-d="203" data-f="2032">Schmidt-Cassegrain de 203 mm</button>
+            <div class="seg presets" id="presets" role="group" aria-label="Telescopios de ejemplo">
+              <button type="button" data-d="70" data-f="700" aria-pressed="false">Refractor de 70 mm</button>
+              <button type="button" data-d="130" data-f="650" aria-pressed="false">Newtoniano de 130 mm</button>
+              <button type="button" data-d="127" data-f="1500" aria-pressed="false">Maksutov de 127 mm</button>
+              <button type="button" data-d="200" data-f="1200" aria-pressed="true">Dobsoniano de 200 mm</button>
+              <button type="button" data-d="203" data-f="2032" aria-pressed="false">Schmidt-Cassegrain de 203 mm</button>
             </div>
     
             <div class="ctl">
@@ -156,7 +172,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
               <button type="button" data-s="3.5" aria-pressed="false">Turbulento</button>
             </div>
             <span class="lbl2 preset-label">Ejemplos reales</span>
-            <div class="seg" id="apresets">
+            <div class="seg" id="apresets" role="group" aria-label="Separaciones de ejemplo entre estrellas">
               <button type="button" data-sep="4">Acrux (unos 4″)</button>
               <button type="button" data-sep="2.5">Épsilon de la Lira (unos 2.5″)</button>
               <button type="button" data-sep="0.7">Casi imposible (0.7″)</button>
@@ -217,6 +233,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
           </div>
           <div>
             <div class="chartbox"><svg id="chart" viewBox="0 0 640 300" role="img" aria-label="Gráfica del ángulo de cada eje contra el tiempo"></svg>
+              <svg id="chartMobile" viewBox="0 0 320 280" role="img" aria-label="Gráfica compacta del movimiento de los ejes durante doce horas"></svg>
               <ul class="legend" aria-hidden="true">
                 <li><i class="legend-eq"></i>Ecuatorial: 1 eje</li>
                 <li><i class="legend-az"></i>Altazimutal: acimut</li>

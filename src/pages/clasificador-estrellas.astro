@@ -15,12 +15,22 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
         <h1>Clasificador<br>de estrellas</h1>
       </div>
       <p class="lead">La luz de una estrella guarda pistas sobre su temperatura y los átomos de su atmósfera. Practica cómo leer su espectro.</p>
+      <a class="start-link" href="#clasificar">Empezar a clasificar</a>
       <nav class="nav" aria-label="Secciones">
         <a href="#clasificar">Clasificar</a>
         <a href="#guia">Guía de pistas</a>
         <a href="#fisica">La física</a>
         <a href="#vida">Vida de una estrella</a>
       </nav>
+      <details class="mobile-nav">
+        <summary>Ir a una sección</summary>
+        <nav aria-label="Secciones del clasificador">
+          <a href="#clasificar">Clasificar</a>
+          <a href="#guia">Guía de pistas</a>
+          <a href="#fisica">La física</a>
+          <a href="#vida">Vida de una estrella</a>
+        </nav>
+      </details>
     </header>
     
     <main>
@@ -48,6 +58,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
               <p class="curvehelp" id="curveHelp" hidden>La línea blanca sube donde hay más luz de ese color.</p>
             </div>
           </div>
+          <p class="mobile-feedback" id="mobileFeedback"></p>
     
           <div class="classes" id="classes" role="group" aria-label="Tipos de estrella, de la más caliente a la más fría"></div>
     
@@ -114,7 +125,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
         <p>Con cada elemento pasa algo parecido, pero a otra temperatura. El helio necesita mucho más calor que el hidrógeno. El calcio y los metales prefieren estrellas más frías. Y en las más frías de todas los átomos se juntan en moléculas, como el óxido de titanio (TiO).</p>
     
         <h3>El mapa de huellas</h3>
-        <p>Cada curva muestra en qué tipo de estrella se ve más marcada una huella. La línea punteada marca la estrella que estás viendo arriba.</p>
+        <p>Cada curva muestra en qué tipo de estrella se ve más marcada una huella. La línea punteada marca la estrella que estás viendo arriba. En teléfono, la lista resume la huella principal de cada tipo.</p>
         <div class="payne" id="payne"></div>
     
         <div class="callout">

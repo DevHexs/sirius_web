@@ -112,6 +112,7 @@ function cataSVG(){
 var OPT={
   refractor:{
     nombre:'Refractor',
+    trayecto:'Luz → lente objetivo → foco → ocular → ojo',
     alt:'Diagrama de un refractor: rayos paralelos atraviesan una lente, convergen en el punto focal y el ocular los vuelve a hacer paralelos hacia el ojo.',
     como:'La luz atraviesa una lente grande, el objetivo, que la dobla (refracción) y la junta en un punto: el foco. Ahí se forma una imagen pequeña que el ocular, una lupa, agranda para tu ojo. Fíjate en el haz que sale del ocular: es más estrecho, porque toda la luz se concentró en la pupila.',
     pros:['Tubo cerrado: casi no necesita mantenimiento','Imágenes de buen contraste, sin nada que tape la luz','Muy buenos para la Luna, los planetas y las estrellas dobles'],
@@ -119,6 +120,7 @@ var OPT={
   },
   reflector:{
     nombre:'Reflector',
+    trayecto:'Luz → espejo primario → espejo secundario → ocular → ojo',
     alt:'Diagrama de un reflector newtoniano: la luz entra al tubo, rebota en un espejo curvo al fondo, luego en un espejo plano pequeño y sale por un costado hacia el ocular.',
     como:'Un espejo curvo al fondo del tubo (el primario) refleja la luz de vuelta y la enfoca. Un espejito plano e inclinado (el secundario) la desvía hacia un costado, donde está el ocular. No hay lentes, así que no hay halos de color. El espejito tapa un poco de luz en el centro.',
     pros:['La mayor apertura por tu dinero','Sin aberración cromática: los espejos reflejan todos los colores igual','Sobre una base tipo Dobson es muy fácil de usar'],
@@ -126,6 +128,7 @@ var OPT={
   },
   cata:{
     nombre:'Catadióptrico',
+    trayecto:'Luz → lámina correctora → espejo primario → espejo secundario → ocular',
     alt:'Diagrama de un telescopio catadióptrico tipo Schmidt-Cassegrain: la luz cruza una lámina correctora, rebota en el espejo del fondo, luego en un espejo pequeño y sale por un agujero en el primario.',
     como:'Mezcla lente y espejos (por eso se llama catadióptrico). Una lámina de vidrio corrige la luz, que rebota en el espejo grande del fondo, luego en uno pequeño que la manda de vuelta hacia atrás, y sale por un agujero en el primario. La luz recorre el tubo tres veces, así que un tubo corto tiene mucha distancia focal y mucho aumento.',
     pros:['Compacto y fácil de transportar','Mucho aumento en poco espacio: excelente para Luna y planetas','Es muy común en versiones con GoTo'],
@@ -139,6 +142,7 @@ function renderOptics(){
   else if(opt.type==='reflector')svg=reflectorSVG();
   else svg=cataSVG();
   $('#optBench').innerHTML='<svg viewBox="0 0 900 440" role="img" aria-label="'+info.alt+'">'+svg+'</svg>';
+  $('#optPath').textContent=info.trayecto;
   $('#optText').innerHTML='<h3>'+info.nombre+': cómo trabaja</h3><p>'+info.como+'</p>'+
     (opt.type==='refractor'&&opt.chrom?'<p>Un lente desvía cada color un poco distinto, como un prisma: el azul se enfoca antes que el rojo. Ese es el origen de los halos de color. Los espejos reflejan todos los colores igual, así que no lo sufren.</p>':'');
   $('#optPros').innerHTML='<h3>A favor</h3><ul>'+info.pros.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul><h3>En contra</h3><ul>'+info.contras.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>';
@@ -303,16 +307,20 @@ function drawView(c){
   else msg=o.name+' ocupa el '+fmt(frac*100,0)+'% del campo.';
   $('#vcap').textContent=msg;
   viewCv.setAttribute('aria-label','Vista por el ocular a '+fmt(c.M,0)+' aumentos: '+msg);
+  var mini=$('#viewMini'),miniCtx=mini.getContext('2d');
+  if(miniCtx){miniCtx.clearRect(0,0,mini.width,mini.height);miniCtx.drawImage(viewCv,0,0,mini.width,mini.height);}
+  $('#quickTitle').textContent=o.name+' · '+fmt(c.M,0)+'×';
+  $('#quickSpec').textContent=frac>1.02?'No cabe entera en el campo.':(frac<.02?'Se ve muy pequeña.':'Ocupa el '+fmt(frac*100,0)+'% del campo.');
 }
-$('#dSl').addEventListener('input',function(){calc.D=Number(this.value);renderCalc();});
-$('#fSl').addEventListener('input',function(){calc.F=Number(this.value);renderCalc();});
+$('#dSl').addEventListener('input',function(){calc.D=Number(this.value);setPressed($('#presets'),function(){return false;});renderCalc();});
+$('#fSl').addEventListener('input',function(){calc.F=Number(this.value);setPressed($('#presets'),function(){return false;});renderCalc();});
 $('#eyeps').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;calc.fe=Number(b.dataset.e);setPressed(this,function(x){return x===b;});renderCalc();});
 $('#barlow').addEventListener('change',function(){calc.barlow=this.checked;renderCalc();});
 $('#objs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;calc.obj=b.dataset.o;setPressed(this,function(x){return x===b;});renderCalc();});
 $('#presets').addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
   calc.D=Number(b.dataset.d);calc.F=Number(b.dataset.f);
-  $('#dSl').value=calc.D;$('#fSl').value=calc.F;renderCalc();
+  $('#dSl').value=calc.D;$('#fSl').value=calc.F;setPressed(this,function(x){return x===b;});renderCalc();
 });
 
 /* ======================================================
@@ -460,26 +468,38 @@ function renderTracking(){
   $('#sky').innerHTML=s;
 
   // gráfica
-  var L=54,Rr=624,T0=14,B0=266;
+  var L=70,Rr=624,T0=14,B0=266;
   var X=function(tt){return L+(tt+6)/12*(Rr-L);},Y=function(v){return T0+(180-v)/360*(B0-T0);};
   var g='';
-  [-180,-90,0,90,180].forEach(function(v){g+='<line class="ch-g" x1="'+L+'" y1="'+Y(v)+'" x2="'+Rr+'" y2="'+Y(v)+'"/><text class="ch-t" x="'+(L-8)+'" y="'+(Y(v)+5)+'" text-anchor="end">'+v+'°</text>';});
-  [-6,-3,0,3,6].forEach(function(v){g+='<text class="ch-t" x="'+X(v)+'" y="'+(B0+22)+'" text-anchor="middle">'+(v>0?'+':'')+v+' h</text>';});
-  function path(fn,color,w){
+  [-180,-90,0,90,180].forEach(function(v){g+='<line class="ch-g" x1="'+L+'" y1="'+Y(v)+'" x2="'+Rr+'" y2="'+Y(v)+'"/><text class="ch-t'+(Math.abs(v)===90?' minor':'')+'" x="'+(L-8)+'" y="'+(Y(v)+5)+'" text-anchor="end">'+v+'°</text>';});
+  [-6,-3,0,3,6].forEach(function(v){g+='<text class="ch-t'+(Math.abs(v)===3?' minor':'')+'" x="'+X(v)+'" y="'+(B0+22)+'" text-anchor="middle">'+(v>0?'+':'')+v+' h</text>';});
+  function path(xCoord,yCoord,fn,color,w){
     var dd='',pn=false,prev=null;
     for(var tt=-6;tt<=6.001;tt+=.1){
       var q=altaz(tt);if(q.alt<0){pn=false;prev=null;continue;}
       var v=fn(q,tt);
       if(prev!==null&&Math.abs(v-prev)>150)pn=false;
-      dd+=(pn?'L':'M')+X(tt).toFixed(1)+' '+Y(v).toFixed(1)+' ';pn=true;prev=v;
+      dd+=(pn?'L':'M')+xCoord(tt).toFixed(1)+' '+yCoord(v).toFixed(1)+' ';pn=true;prev=v;
     }
     return '<path d="'+dd+'" fill="none" stroke="'+color+'" stroke-width="'+w+'" stroke-linecap="round" stroke-linejoin="round"/>';
   }
-  g+=path(function(q,tt){return 15*tt;},'var(--c-eq)',4.5);
-  g+=path(function(q){return q.rel;},'var(--c-az)',3);
-  g+=path(function(q){return q.alt;},'var(--c-alt)',3);
+  g+=path(X,Y,function(q,tt){return 15*tt;},'var(--c-eq)',4.5);
+  g+=path(X,Y,function(q){return q.rel;},'var(--c-az)',3);
+  g+=path(X,Y,function(q){return q.alt;},'var(--c-alt)',3);
   g+='<line class="ch-cur" x1="'+X(tr.t)+'" y1="'+T0+'" x2="'+X(tr.t)+'" y2="'+B0+'"/>';
   $('#chart').innerHTML=g;
+
+  // La gráfica móvil usa un lienzo casi cuadrado y menos marcas para que los textos sigan siendo legibles.
+  var ML=48,MR=305,MT=20,MB=240;
+  var Xm=function(tt){return ML+(tt+6)/12*(MR-ML);},Ym=function(v){return MT+(180-v)/360*(MB-MT);};
+  var gm='';
+  [-180,0,180].forEach(function(v){gm+='<line class="ch-g" x1="'+ML+'" y1="'+Ym(v)+'" x2="'+MR+'" y2="'+Ym(v)+'"/><text class="ch-t" x="'+(ML-7)+'" y="'+(Ym(v)+5)+'" text-anchor="end">'+v+'°</text>';});
+  [-6,0,6].forEach(function(v){gm+='<text class="ch-t" x="'+Xm(v)+'" y="264" text-anchor="middle">'+(v>0?'+':'')+v+' h</text>';});
+  gm+=path(Xm,Ym,function(q,tt){return 15*tt;},'var(--c-eq)',3.5);
+  gm+=path(Xm,Ym,function(q){return q.rel;},'var(--c-az)',2.5);
+  gm+=path(Xm,Ym,function(q){return q.alt;},'var(--c-alt)',2.5);
+  gm+='<line class="ch-cur" x1="'+Xm(tr.t)+'" y1="'+MT+'" x2="'+Xm(tr.t)+'" y2="'+MB+'"/>';
+  $('#chartMobile').innerHTML=gm;
 
   $('#tOut').textContent=(tr.t>0?'+':'')+fmt(tr.t,1)+' h';
   var r=rates(tr.t);
