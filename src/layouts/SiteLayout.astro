@@ -14,11 +14,36 @@ const { title, description = 'Herramientas didácticas de astronomía de Sirius 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script is:inline>
+      (() => {
+        let preference = 'system';
+        try {
+          const saved = localStorage.getItem('sirius-theme');
+          if (saved === 'light' || saved === 'dark') preference = saved;
+        } catch {}
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = preference === 'system'
+          ? (systemDark ? 'dark' : 'light')
+          : preference;
+        document.documentElement.dataset.themePreference = preference;
+      })();
+    </script>
   </head>
   <body>
+    <div class="site-toolbar">
+      <fieldset class="appearance-control" aria-label="Apariencia del sitio">
+        <legend>Apariencia</legend>
+        <button type="button" data-theme-choice="system" aria-pressed="true">Sistema</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false">Claro</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false">Oscuro</button>
+      </fieldset>
+    </div>
     <slot />
+    <script>
+      import '../scripts/theme.js';
+    </script>
   </body>
 </html>

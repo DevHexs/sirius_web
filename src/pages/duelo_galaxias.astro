@@ -12,7 +12,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
   <div class="wrap">
     <header>
       <a href={`${base}index.html`} class="back-btn">← Volver al portal</a>
-      <div class="eyebrow">Sirius SAAC · El poder de la innovación</div>
+      <div class="eyebrow">Sirius SAAC · Clasificación de galaxias</div>
       <h1>Duelo de clasificación: tú vs. el clasificador</h1>
       <p class="sub">Aparece un objeto observado por telescopio. Clasifícalo antes que el modelo. Él solo mide tres números; tú puedes ver la imagen completa. ¿Quién gana más rondas?</p>
     </header>
@@ -55,7 +55,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
           <div class="guess" id="humanGuess">—</div>
         </div>
         <div class="verdict" id="aiVerdict">
-          <div class="who">Clasificador <span id="aiConf" class="who" style="text-transform:none;"></span></div>
+          <div class="who">Clasificador <span id="aiConf" class="who"></span></div>
           <div class="guess" id="aiGuess">—</div>
         </div>
       </div>
@@ -64,13 +64,13 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
       <button id="nextBtn">Siguiente objeto ➜</button>
     </div>
 
-    <div class="panel" style="margin-top:18px;">
+    <div class="panel log-panel">
       <h2>Bitácora de observaciones</h2>
       <div class="table-responsive">
         <table id="log">
           <thead><tr><th>#</th><th>Tipo real</th><th>Tú</th><th>Modelo</th></tr></thead>
           <tbody id="logBody">
-            <tr><td colspan="4" class="muted" style="font-family:'Space Grotesk';">Aún no hay observaciones. Empieza arriba.</td></tr>
+            <tr><td colspan="4" class="muted">Aún no hay observaciones. Empieza arriba.</td></tr>
           </tbody>
         </table>
       </div>

@@ -10,26 +10,31 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
   title="Portal Sirius — Club de Astronomía"
   description="Explora astronomía con actividades y simulaciones didácticas de Sirius SAAC."
 >
-  <div class="container">
-    <header>
-      <img src={logo.src} alt="Logo Sirius SAAC" class="logo" />
+  <main class="portal-page">
+    <header class="portal-hero">
+      <div class="logo-frame"><img src={logo.src} alt="" class="logo" /></div>
       <div class="header-content">
-        <div class="eyebrow">Sirius SAAC · El poder de la innovación</div>
-        <h1>Plataforma de Simulación Sirius</h1>
-        <p class="sub">Explora el cosmos y desafía modelos matemáticos interactuando con nuestros módulos de clasificación galáctica y simulación de cohetes.</p>
+        <div class="eyebrow">Sirius SAAC · Astronomía para explorar</div>
+        <h1>Explora el cielo. Pon a prueba tus ideas.</h1>
+        <p class="sub">Actividades para observar, comparar y descubrir cómo explicamos el universo.</p>
       </div>
     </header>
 
-    <div class="portal-grid">
+    <section aria-labelledby="modules-title">
+      <div class="section-heading">
+        <h2 id="modules-title">Elige una actividad</h2>
+        <p>Prueba una idea y observa qué cambia.</p>
+      </div>
+      <div class="portal-grid">
       <a href={`${base}duelo_galaxias.html`} class="card card-galaxy" id="cardGalaxy">
         <div class="card-top">
-          <span class="card-badge">Módulo A-1</span>
+          <span class="card-badge">Clasificación de galaxias</span>
           <h2 class="card-title">Duelo de Clasificación Galáctica</h2>
-          <p class="card-desc">Un objeto misterioso observado por telescopio ha aparecido en la lente. Clasifica el tipo de galaxia (espiral, elíptica o irregular) antes que el clasificador usando telemetría astronómica. ¿Podrás superar sus reglas?</p>
+          <p class="card-desc">Observa una galaxia, busca pistas en su forma y compáralas con las reglas de un clasificador sencillo.</p>
         </div>
         <div class="card-footer">
-          <span class="action-text" style="color: var(--flame);">
-            Iniciar Clasificación
+          <span class="action-text">
+            Observar galaxias
             <svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -39,41 +44,44 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 
       <a href={`${base}simulador_cohetes.html`} class="card card-rocket" id="cardRocket">
         <div class="card-top">
-          <span class="card-badge">Módulo R-9</span>
-          <h2 class="card-title">Simulador Crítico de Cohetes</h2>
-          <p class="card-desc">Configura masa, empuje, tiempo de combustión y arrastre del aire para lanzar cohetes suborbitales. Pon a prueba las limitaciones del modelo de vuelo simplificado.</p>
+          <span class="card-badge">Movimiento y fuerzas</span>
+          <h2 class="card-title">Simulador de vuelo de cohetes</h2>
+          <p class="card-desc">Ajusta las condiciones de lanzamiento y explora cómo cambian la altura y el alcance en un modelo simplificado.</p>
         </div>
         <div class="card-footer">
-          <span class="action-text" style="color: var(--telemetry);">
-            Abrir Simulador
+          <span class="action-text">
+            Probar el simulador
             <svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
         </div>
       </a>
+      <a href={`${base}clasificador-estrellas.html`} class="card card-stars" id="cardStars">
+        <div class="card-top">
+          <span class="card-badge">Luz y espectros</span>
+          <h2 class="card-title">Clasificador de estrellas</h2>
+          <p class="card-desc">Relaciona el color y las líneas de un espectro con la temperatura aproximada de una estrella.</p>
+        </div>
+        <div class="card-footer">
+          <span class="action-text">Leer la luz estelar<svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
+      <a href={`${base}clasificador-de-telescopios.html`} class="card card-telescopes" id="cardTelescopes">
+        <div class="card-top">
+          <span class="card-badge">Óptica y observación</span>
+          <h2 class="card-title">Guía interactiva de telescopios</h2>
+          <p class="card-desc">Compara diseños, prueba aumentos y apertura, y explora qué instrumento se ajusta a tus intereses.</p>
+        </div>
+        <div class="card-footer">
+          <span class="action-text">Explorar telescopios<svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
     </div>
+    </section>
 
-    <div class="status-panel">
-      <div class="status-item">
-        <span class="status-indicator"></span>
-        <span>SISTEMAS ONLINE</span>
-      </div>
-      <div>CONEXIÓN DE TELEMETRÍA: ACTIVA</div>
-      <div>V.2.6.0</div>
-    </div>
-  </div>
+    <aside class="field-note"><strong>Una pregunta para empezar:</strong> ¿qué pistas de la luz de una estrella o del diseño de un telescopio puedes usar para explicar lo que observas?</aside>
+  </main>
 
-  <footer>&copy; 2026 SIRIUS SAAC &bull; ASTRONOMÍA</footer>
-
-  <script>
-    const cards = document.querySelectorAll('.card');
-    cards.forEach((card) => {
-      card.addEventListener('mousemove', (event) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--x', `${event.clientX - rect.left}px`);
-        card.style.setProperty('--y', `${event.clientY - rect.top}px`);
-      });
-    });
-  </script>
+  <footer>&copy; 2026 Sirius SAAC · Astronomía</footer>
 </SiteLayout>

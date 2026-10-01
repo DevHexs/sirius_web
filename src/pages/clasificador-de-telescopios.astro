@@ -1,0 +1,291 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import '../styles/clasificador_telescopios.css';
+
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+---
+
+<SiteLayout title="Clasificador de telescopios — Sirius SAAC" description="Aprende cómo funcionan los telescopios y explora apertura, aumentos, resolución, monturas y opciones para empezar.">
+  <div class="telescopes-page">
+    <a class="skip" href="#como">Saltar al contenido</a>
+    
+    <a class="back-btn module-back" href={`${base}index.html`}>← Volver al portal</a>
+    <header class="wrap top">
+      <div class="topbar">
+        <h1>Explora y elige un telescopio</h1>
+        <button class="btn red-mode" id="redMode" type="button" aria-pressed="false">Activar luz roja</button>
+      </div>
+      <p class="lead">Descubre cómo funciona un telescopio, qué dice la física y cómo elegir el primero sin gastar de más.</p>
+      <nav class="nav" aria-label="Secciones">
+        <a href="#como">Cómo funciona</a>
+        <a href="#numeros">Los números</a>
+        <a href="#nitidez">Ver más fino</a>
+        <a href="#monturas">Monturas</a>
+        <a href="#elige">Elige el tuyo</a>
+      </nav>
+    </header>
+    
+    <main>
+    <!-- 1. Cómo funciona -->
+    <section id="como" class="block first">
+      <div class="wrap">
+        <h2>Cómo funciona un telescopio</h2>
+        <p>Un telescopio no es una lupa gigante. Es un embudo de luz: reúne mucha más de la que cabe en tu ojo y la enfoca en un punto. Elige un tipo y mira el camino que sigue la luz de una estrella lejana.</p>
+    
+        <div class="seg tabs" id="optTabs" role="group" aria-label="Tipo de telescopio">
+          <button type="button" data-t="refractor" aria-pressed="true">Refractor (lentes)</button>
+          <button type="button" data-t="reflector" aria-pressed="false">Reflector (espejos)</button>
+          <button type="button" data-t="cata" aria-pressed="false">Catadióptrico (lente y espejos)</button>
+        </div>
+    
+        <div class="bench" id="optBench"></div>
+    
+        <div class="optbar">
+          <label class="chk" id="chromWrap"><input type="checkbox" id="chrom"> Ver la aberración cromática</label>
+          <span class="lbl2 opt-hint" id="optHint">Los rayos amarillos son la luz de la estrella. Vienen paralelos porque la estrella está muy lejos.</span>
+        </div>
+    
+        <div class="two optinfo">
+          <div class="card" id="optText"></div>
+          <div class="card" id="optPros"></div>
+        </div>
+    
+        <div class="three">
+          <div><b>Reúne luz</b><p>El lente o espejo grande (el objetivo) es una ventana enorme comparada con tu pupila. Su diámetro se llama apertura.</p></div>
+          <div><b>Forma una imagen</b><p>Junta la luz en el punto focal. La distancia hasta ese punto es la distancia focal.</p></div>
+          <div><b>La amplía</b><p>El ocular es una lupa que agranda esa imagen. Cambiar de ocular cambia los aumentos, no la cantidad de luz.</p></div>
+        </div>
+        <div class="callout">
+          <p><b>La regla que más te ahorrará dinero:</b> lo que manda es la apertura. Con más apertura ves más débil y más fino. Los aumentos los pone el ocular y casi cualquier telescopio puede darlos.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 2. Los números -->
+    <section id="numeros" class="block">
+      <div class="wrap">
+        <h2>Los números que importan</h2>
+        <p>En las cajas verás muchas cifras. Solo unas pocas cuentan. Mueve los controles y mira qué cambia, tanto en las cifras como en lo que verías por el ocular.</p>
+    
+        <div class="calc">
+          <div>
+            <span class="lbl2">Modelos de ejemplo</span>
+            <div class="seg presets" id="presets">
+              <button type="button" data-d="70" data-f="700">Refractor de 70 mm</button>
+              <button type="button" data-d="130" data-f="650">Newtoniano de 130 mm</button>
+              <button type="button" data-d="127" data-f="1500">Maksutov de 127 mm</button>
+              <button type="button" data-d="200" data-f="1200">Dobsoniano de 200 mm</button>
+              <button type="button" data-d="203" data-f="2032">Schmidt-Cassegrain de 203 mm</button>
+            </div>
+    
+            <div class="ctl">
+              <div class="row"><label for="dSl">Apertura (diámetro del lente o espejo)</label><output id="dOut"></output></div>
+              <input type="range" id="dSl" min="50" max="400" step="1" value="200">
+            </div>
+            <div class="ctl">
+              <div class="row"><label for="fSl">Distancia focal</label><output id="fOut"></output></div>
+              <input type="range" id="fSl" min="300" max="3000" step="10" value="1200">
+            </div>
+            <span class="lbl2">Ocular (distancia focal)</span>
+            <div class="seg" id="eyeps" role="group" aria-label="Ocular">
+              <button type="button" data-e="32" aria-pressed="false">32 mm</button>
+              <button type="button" data-e="25" aria-pressed="true">25 mm</button>
+              <button type="button" data-e="15" aria-pressed="false">15 mm</button>
+              <button type="button" data-e="10" aria-pressed="false">10 mm</button>
+              <button type="button" data-e="6" aria-pressed="false">6 mm</button>
+            </div>
+            <label class="chk"><input type="checkbox" id="barlow"> Añadir un lente Barlow 2× (duplica los aumentos)</label>
+    
+            <h3>Qué verías por el ocular</h3>
+            <div class="seg" id="objs" role="group" aria-label="Objeto a observar">
+              <button type="button" data-o="luna" aria-pressed="true">La Luna</button>
+              <button type="button" data-o="jupiter" aria-pressed="false">Júpiter</button>
+              <button type="button" data-o="saturn" aria-pressed="false">Saturno</button>
+              <button type="button" data-o="pleiades" aria-pressed="false">Pléyades</button>
+              <button type="button" data-o="orion" aria-pressed="false">Nebulosa de Orión</button>
+              <button type="button" data-o="andromeda" aria-pressed="false">Galaxia de Andrómeda</button>
+            </div>
+            <div class="viewer redable"><canvas id="view" width="420" height="420" role="img" aria-label="Vista por el ocular"></canvas></div>
+            <p class="vcap" id="vcap"></p>
+          </div>
+    
+          <div>
+            <div class="eyecmp">
+              <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="c1" id="cBig" cx="50" cy="50" r="46"/><circle class="c2" id="cEye" cx="50" cy="50" r="3"/></svg>
+              <p id="eyeTxt"></p>
+            </div>
+            <dl class="res" id="res"></dl>
+          </div>
+        </div>
+        <div class="callout">
+          <p><b>Ojo con los aumentos anunciados.</b> Un buen límite útil es unas 2 veces la apertura en milímetros. Un telescopio de 70 mm rinde bien hasta unos 140×, aunque la caja diga 525×. Más allá la imagen solo se agranda y se vuelve borrosa y oscura.</p>
+        </div>
+        <p class="lbl2">El campo aparente del ocular se supone de 50°, un valor típico. Las nebulosas y galaxias del visor se muestran más brillantes de lo que se ven por el ocular: en la realidad son tenues y casi grises.</p>
+      </div>
+    </section>
+    
+    <!-- 3. Nitidez -->
+    <section id="nitidez" class="block">
+      <div class="wrap">
+        <h2>Por qué un telescopio grande ve más fino, y hasta dónde</h2>
+        <p>La luz es una onda. Cuando entra por una abertura redonda se abre un poco, así que una estrella nunca es un punto perfecto: es un disco pequeño rodeado de anillos (el disco de Airy). Cuanto mayor es la apertura, más pequeño es ese disco, y puedes separar dos estrellas muy juntas. Pero el aire también tiembla y borra detalles finos.</p>
+    
+        <div class="calc">
+          <div>
+            <div class="airy redable"><canvas id="airy" width="128" height="128" role="img" aria-label="Simulación de dos estrellas muy juntas"></canvas></div>
+          </div>
+          <div>
+            <p class="verdict" id="verdict"></p>
+            <p id="verdictTxt"></p>
+            <div class="limits">
+              <div><b id="limScope"></b><small>límite de tu telescopio</small></div>
+              <div><b id="limAir"></b><small>límite del aire</small></div>
+            </div>
+            <div class="ctl">
+              <div class="row"><label for="aD">Apertura</label><output id="aDo"></output></div>
+              <input type="range" id="aD" min="50" max="400" step="5" value="100">
+            </div>
+            <div class="ctl">
+              <div class="row"><label for="aS">Separación entre las dos estrellas</label><output id="aSo"></output></div>
+              <input type="range" id="aS" min="0.3" max="6" step="0.1" value="2.5">
+            </div>
+            <span class="lbl2">Estado del aire (turbulencia)</span>
+            <div class="seg" id="seeing" role="group" aria-label="Estado del aire">
+              <button type="button" data-s="0.8" aria-pressed="false">Muy estable</button>
+              <button type="button" data-s="2" aria-pressed="true">Normal</button>
+              <button type="button" data-s="3.5" aria-pressed="false">Turbulento</button>
+            </div>
+            <span class="lbl2 preset-label">Ejemplos reales</span>
+            <div class="seg" id="apresets">
+              <button type="button" data-sep="4">Acrux (unos 4″)</button>
+              <button type="button" data-sep="2.5">Épsilon de la Lira (unos 2.5″)</button>
+              <button type="button" data-sep="0.7">Casi imposible (0.7″)</button>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <p>El segundo de arco (″) es una medida diminuta: un grado tiene 3,600. La regla de Dawes (116 ÷ apertura en mm) estima la separación de estrellas dobles brillantes y de brillo parecido en condiciones favorables; no es un límite universal. La turbulencia atmosférica también puede borrar detalles, y cambia de una noche a otra.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 4. Monturas -->
+    <section id="monturas" class="block">
+      <div class="wrap">
+        <h2>La montura: tan importante como el tubo</h2>
+        <p>La Tierra gira, y por eso el cielo se desplaza: 15 segundos de arco cada segundo, una vuelta al día. La montura sostiene el tubo y te deja apuntar y seguir lo que miras. Hay dos familias.</p>
+    
+        <div class="two">
+          <div class="mnt">
+            <div id="svgAlt"></div>
+            <h3 class="mount-title">Altazimutal</h3>
+            <p>Dos movimientos naturales: de lado (acimut) y arriba-abajo (altura), como una cámara de trípode.</p>
+            <ul>
+              <li><b>A favor:</b> sencilla, ligera y barata. La usas sin instrucciones. Es la base de los telescopios Dobson, que dan mucha apertura por poco dinero.</li>
+              <li><b>En contra:</b> para seguir una estrella hay que mover los dos ejes a la vez. Sin motores, tienes que empujar el tubo cada tanto.</li>
+            </ul>
+          </div>
+          <div class="mnt">
+            <div id="svgEq"></div>
+            <div class="ctl latitude-control">
+              <div class="row"><label for="latSl">Tu latitud (grados al norte del ecuador)</label><output id="latOut"></output></div>
+              <input type="range" id="latSl" min="0" max="60" step="1" value="9">
+            </div>
+            <h3 class="mount-title">Ecuatorial</h3>
+            <p>Uno de sus ejes queda paralelo al eje de la Tierra y apunta al polo celeste. Al girar ese eje, sigues las estrellas con un solo movimiento.</p>
+            <ul>
+              <li><b>A favor:</b> un solo motor (o una perilla) mantiene el objeto en el ocular. Es la que se usa para fotografiar.</li>
+              <li><b>En contra:</b> pesa más, lleva contrapesos y hay que alinear el eje con el polo. Cuesta aprenderlo.</li>
+            </ul>
+          </div>
+        </div>
+    
+        <h3>Míralo en movimiento</h3>
+        <p>Elige una estrella y mueve el tiempo. La gráfica muestra cuánto tiene que girar cada eje para seguirla. Con la montura ecuatorial es una recta. Con la altazimutal, dos curvas que aceleran y frenan.</p>
+    
+        <div class="seg" id="stars" role="group" aria-label="Estrella a seguir">
+          <button type="button" data-dec="-16.7" aria-pressed="false">Sirio</button>
+          <button type="button" data-dec="-1" aria-pressed="true">Cinturón de Orión</button>
+          <button type="button" data-dec="-26.4" aria-pressed="false">Antares</button>
+          <button type="button" data-dec="38.8" aria-pressed="false">Vega</button>
+          <button type="button" data-dec="zenith" aria-pressed="false">Una que pasa por el cenit</button>
+        </div>
+        <div class="trk">
+          <div class="skyplot">
+            <svg id="sky" viewBox="0 0 300 300" role="img" aria-label="Vista del cielo desde arriba con el recorrido de la estrella"></svg>
+            <p class="lbl2 sky-hint">Vista hacia arriba. El centro es el cenit.</p>
+          </div>
+          <div>
+            <div class="chartbox"><svg id="chart" viewBox="0 0 640 300" role="img" aria-label="Gráfica del ángulo de cada eje contra el tiempo"></svg>
+              <ul class="legend" aria-hidden="true">
+                <li><i class="legend-eq"></i>Ecuatorial: 1 eje</li>
+                <li><i class="legend-az"></i>Altazimutal: acimut</li>
+                <li><i class="legend-alt"></i>Altazimutal: altura</li>
+              </ul>
+            </div>
+            <div class="ctl time-control">
+              <div class="row"><label for="tSl">Horas antes o después de su punto más alto</label><output id="tOut"></output></div>
+              <input type="range" id="tSl" min="-6" max="6" step="0.05" value="-2">
+            </div>
+            <div class="playrow"><button class="btn" id="play" type="button">Reproducir</button></div>
+          </div>
+        </div>
+        <div class="readout" id="readout"></div>
+    
+        <div class="callout">
+          <p><b>GoTo y push-to.</b> Los telescopios GoTo llevan motores y una computadora que encuentra los objetos por ti. Una montura altazimutal con GoTo también sigue el cielo moviendo sus dos motores a la vez. Con push-to, una pantalla o app te dice hacia dónde empujar tú mismo.</p>
+        </div>
+        <div class="two">
+          <div class="card">
+            <h3>Para mirar</h3>
+            <p>La montura altazimutal es una excelente elección para empezar. Si eliges una ecuatorial, asegúrate de que sea firme: una montura que tiembla arruina un buen tubo.</p>
+          </div>
+          <div class="card">
+            <h3>Para fotografiar</h3>
+            <p>En exposiciones largas, una altazimutal hace que la imagen gire poco a poco sobre sí misma (rotación de campo). Por eso la fotografía seria pide ecuatorial. Cerca del ecuador terrestre, Polaris queda muy bajo y a veces tapado, así que alinear el eje polar exige otros métodos, como brújula o una app.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 5. Elegir -->
+    <section id="elige" class="block">
+      <div class="wrap">
+        <h2>Elige el tuyo</h2>
+        <p>Responde estas cuatro preguntas y verás qué tipo de instrumento encaja mejor con tu primer telescopio. Puedes cambiar las respuestas en cualquier momento.</p>
+        <div class="qs" id="qs"></div>
+        <div class="pick" id="pick"></div>
+    
+        <div class="callout">
+          <p><b>Un consejo aunque elijas otra cosa:</b> unos binoculares son un compañero excelente. Los encuentras más baratos, cargan en la mano y te enseñan las constelaciones que después buscarás con el telescopio.</p>
+        </div>
+    
+        <h3>Antes de gastar</h3>
+        <ol class="steps">
+          <li><b>Mira con lo que tengas</b><p>Salgan noches con tus ojos y unos binoculares. Aprenderás a ubicarte en el cielo.</p></li>
+          <li><b>Visita un club</b><p>Muchos clubes de astronomía hacen noches abiertas. Podrás mirar por telescopios reales y preguntar.</p></li>
+          <li><b>Compra con calma</b><p>Prefiere un tubo modesto en una montura firme que un tubo llamativo en una montura floja.</p></li>
+        </ol>
+    
+        <h3>Mitos comunes</h3>
+        <div class="myths">
+          <div><b>«Más aumentos es mejor»</b><p>No. Lo que cuenta es la apertura. Las cajas que anuncian 500× o 600× prometen imágenes borrosas.</p></div>
+          <div><b>«Uno más grande siempre se ve más nítido»</b><p>La turbulencia puede limitar el detalle y varía según la noche. Míralo en la demostración de arriba.</p></div>
+          <div><b>«Verás las fotos de las revistas»</b><p>Tu ojo no acumula luz. Las nebulosas y galaxias se ven como manchas tenues. Las fotos suman minutos de luz.</p></div>
+          <div><b>«El más barato sirve para probar»</b><p>Los de juguete, con trípode que tiembla y lentes pobres, desaniman. Vale más empezar con binoculares o comprar algo decente.</p></div>
+        </div>
+      </div>
+    </section>
+    </main>
+    
+    <footer>
+      <div class="wrap">
+        <p>Las cifras son aproximaciones útiles para principiantes. Los precios son orientativos, en dólares estadounidenses, y no consultan inventario ni precios en tiempo real. Los diagramas y simulaciones son simplificaciones y no están a escala. La latitud inicial representa aproximadamente Ciudad de Panamá; puedes cambiarla.</p>
+        <p>Para profundizar: <a href="https://openstax.org/books/astronomy-2e/pages/6-1-telescopes" target="_blank" rel="noreferrer">OpenStax, telescopios y apertura</a>, <a href="https://science.nasa.gov/universe/telescopes-101/" target="_blank" rel="noreferrer">NASA, conceptos básicos de telescopios</a> y <a href="https://openstax.org/books/f%C3%ADsica-universitaria-volumen-3/pages/4-5-aberturas-circulares-y-resolucion" target="_blank" rel="noreferrer">OpenStax, resolución y abertura circular</a>.</p>
+      </div>
+    </footer>
+  </div>
+  <script>
+    import '../scripts/clasificador_telescopios.js';
+  </script>
+</SiteLayout>

@@ -12,7 +12,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
   <div class="wrap">
     <header>
       <a href={`${base}index.html`} class="back-btn">← Volver al portal</a>
-      <div class="eyebrow">Sirius SAAC · El poder de la innovación</div>
+      <div class="eyebrow">Sirius SAAC · Movimiento y fuerzas</div>
       <h1>Misión crítica: cohetes bajo la lupa del modelo</h1>
       <p class="sub">Ajusta el cohete, lánzalo y compara el vuelo con una recomendación basada en un modelo simplificado que ignora el aire. Tu misión: descubrir cuándo deja de funcionar.</p>
     </header>
@@ -77,13 +77,13 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
       </div>
     </div>
 
-    <div class="panel" style="margin-top:18px;">
+    <div class="panel log-panel">
       <h2>Bitácora de lanzamientos</h2>
       <div class="table-responsive">
         <table id="log">
           <thead><tr><th>#</th><th>Ángulo</th><th>Arrastre</th><th>Apogeo</th><th>Alcance</th><th>vs. sugerencia</th></tr></thead>
           <tbody id="logBody">
-            <tr><td colspan="6" class="muted" style="font-family:'Space Grotesk';">Aún no hay lanzamientos. Lanza tu primer cohete arriba.</td></tr>
+            <tr><td colspan="6" class="muted">Aún no hay lanzamientos. Lanza tu primer cohete arriba.</td></tr>
           </tbody>
         </table>
       </div>

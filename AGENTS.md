@@ -6,7 +6,7 @@ Este repositorio contiene información y herramientas didácticas de astronomía
 
 - Lee solo los archivos relacionados con la tarea. Para crear o rediseñar páginas, consulta [docs/BASE_DEL_PROYECTO.md](docs/BASE_DEL_PROYECTO.md); para un módulo nuevo, usa también [docs/PLANTILLA_MODULO.md](docs/PLANTILLA_MODULO.md).
 - Consulta [docs/EVALUACION_FRAMEWORK.md](docs/EVALUACION_FRAMEWORK.md) antes de cambiar la arquitectura. Astro genera el sitio estático actual.
-- Reutiliza estilos y patrones compartidos. Cuando se apruebe el sistema visual, sus tokens y componentes serán la fuente de verdad; evita colores, fuentes y controles nuevos por página sin una razón documentada.
+- Reutiliza los tokens de `src/styles/global.css` y los patrones compartidos. La apariencia se elige con Sistema / Claro / Oscuro; «Científico/Cadete» es independiente. Evita colores y controles nuevos por página sin una razón documentada. Una visualización puede conservar una paleta propia si ayuda a comprenderla.
 - Mantén la lógica del módulo en `src/scripts/` y sus estilos particulares en `src/styles/`. Evita ampliar los bloques `<style>` dentro de páginas y los estilos en línea.
 - Escribe la interfaz en español claro. Muestra unidades, supuestos, límites del modelo y el objetivo de aprendizaje. No presentes reglas fijas o simulaciones como una IA generativa ni afirmes precisión científica no verificada.
 - Diseña primero para teléfono: contenido y acción principal visibles, lectura cómoda, controles táctiles amplios y sin desplazamiento horizontal de la página. Usa HTML semántico, navegación por teclado, foco visible y movimiento reducido.

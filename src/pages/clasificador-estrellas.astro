@@ -1,0 +1,155 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import '../styles/clasificador_estrellas.css';
+
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+---
+
+<SiteLayout title="Clasificador de estrellas — Sirius SAAC" description="Explora los espectros de las estrellas, sus temperaturas y las pistas que revela su luz.">
+  <div class="stars-page">
+    <a class="skip" href="#clasificar">Saltar al clasificador</a>
+    
+    <a class="back-btn module-back" href={`${base}index.html`}>← Volver al portal</a>
+    <header class="wrap top">
+      <div class="topbar">
+        <h1>Clasificador<br>de estrellas</h1>
+      </div>
+      <p class="lead">La luz de una estrella guarda pistas sobre su temperatura y los átomos de su atmósfera. Practica cómo leer su espectro.</p>
+      <nav class="nav" aria-label="Secciones">
+        <a href="#clasificar">Clasificar</a>
+        <a href="#guia">Guía de pistas</a>
+        <a href="#fisica">La física</a>
+        <a href="#vida">Vida de una estrella</a>
+      </nav>
+    </header>
+    
+    <main>
+    <section id="clasificar" class="wrap instrument" aria-label="Clasificador">
+      <div class="tabs" role="group" aria-label="Modo">
+        <button class="tab" id="tabExplore" type="button" aria-pressed="true">Explorar</button>
+        <button class="tab" id="tabDetective" type="button" aria-pressed="false">Detective</button>
+      </div>
+    
+      <div class="grid">
+        <div>
+          <div class="visor">
+            <div class="starbox"><div class="star" id="star"><span id="starLetter">G</span></div></div>
+            <div class="scope">
+              <div class="scale" id="scale" aria-hidden="true"></div>
+              <div class="strip">
+                <canvas id="spec" role="img" aria-label="Espectro de una estrella"></canvas>
+                <div class="peak" id="peak" hidden></div>
+              </div>
+              <div class="ticks" id="ticks" aria-hidden="true"></div>
+              <div class="scopebar">
+                <label class="chk"><input type="checkbox" id="curve"> Mostrar la curva de brillo</label>
+                <span id="peakNote"></span>
+              </div>
+              <p class="curvehelp" id="curveHelp" hidden>La línea blanca sube donde hay más luz de ese color.</p>
+            </div>
+          </div>
+    
+          <div class="classes" id="classes" role="group" aria-label="Tipos de estrella, de la más caliente a la más fría"></div>
+    
+          <div class="sliderwrap" id="sliderwrap">
+            <input type="range" id="temp" min="0" max="700" step="1" value="0" aria-label="Temperatura de la estrella, de más caliente a más fría">
+            <div class="hotcold" aria-hidden="true"><span>Más caliente</span><span>Más fría</span></div>
+          </div>
+    
+          <div class="detbar" id="detbar" hidden>
+            <button class="btn" id="hintColor" type="button">Ver su color</button>
+            <button class="btn" id="reveal" type="button">Mostrar respuesta</button>
+            <button class="btn" id="next" type="button">Otra estrella</button>
+            <span class="score" id="score"></span>
+          </div>
+        </div>
+    
+        <div id="panel" role="region" aria-label="Resultado"></div>
+      </div>
+      <div class="sr" id="live" aria-live="polite"></div>
+    </section>
+    
+    <section id="guia" class="block">
+      <div class="wrap">
+        <h2>Guía de pistas</h2>
+        <p>Las estrellas se ordenan de la más caliente a la más fría con las letras O, B, A, F, G, K, M. Para reconocer una, mira primero el color y después las líneas oscuras.</p>
+        <table class="tw">
+          <caption class="sr">Los siete tipos de estrella</caption>
+          <thead><tr><th>Tipo</th><th>Color</th><th>Temperatura</th><th>Cómo reconocerla</th><th>Ejemplos</th><th></th></tr></thead>
+          <tbody id="guideBody"></tbody>
+        </table>
+      </div>
+    </section>
+    
+    <section id="fisica" class="block">
+      <div class="wrap">
+        <h2>La física: qué nos dice la luz</h2>
+        <p>Una estrella está demasiado lejos para visitarla. Lo único que nos llega es su luz. Si la separamos en colores con un prisma o con un CD, como en tu espectroscopio, aparece una huella con tres clases de pistas.</p>
+    
+        <div class="kirch">
+          <figure>
+            <h3>Luz continua</h3>
+            <canvas id="kCont" role="img" aria-label="Arcoíris continuo sin líneas"></canvas>
+            <figcaption>Un objeto denso y caliente brilla con todos los colores. Es el fondo de la luz de una estrella. <b>En tu espectroscopio:</b> un foco incandescente.</figcaption>
+          </figure>
+          <figure>
+            <h3>Líneas de emisión</h3>
+            <canvas id="kEmis" role="img" aria-label="Fondo negro con líneas de colores brillantes"></canvas>
+            <figcaption>Un gas caliente y poco denso brilla solo en unos colores muy concretos, y cada elemento tiene los suyos. Aquí, el hidrógeno. <b>En tu espectroscopio:</b> una lámpara fluorescente o de neón.</figcaption>
+          </figure>
+          <figure>
+            <h3>Líneas de absorción</h3>
+            <canvas id="kAbs" role="img" aria-label="Arcoíris con líneas oscuras"></canvas>
+            <figcaption>Si la luz continua atraviesa un gas más frío, ese gas se traga justo los colores que emitiría. Son los mismos lugares de la línea de arriba, pero oscuros. Así se ve una estrella: su atmósfera fría absorbe parte de la luz que sube desde el interior. <b>En tu espectroscopio:</b> es lo más difícil de ver, por eso hay un simulador.</figcaption>
+          </figure>
+        </div>
+    
+        <h3>Por qué la temperatura cambia las líneas</h3>
+        <p>Una línea de hidrógeno visible aparece cuando un electrón que está en el segundo nivel de energía absorbe un fotón y salta más arriba. Para que eso pase tiene que haber muchos electrones en ese segundo nivel.</p>
+        <div class="three">
+          <div><b>Muy fría</b><p>Casi todos los electrones están en el primer nivel. Nadie puede absorber luz visible, y la línea es débil.</p></div>
+          <div><b>Punto justo, cerca de 10,000 K</b><p>Muchos electrones están en el segundo nivel, listos para absorber. La línea es la más fuerte.</p></div>
+          <div><b>Muy caliente</b><p>El átomo pierde su electrón (se ioniza). Ya no hay quién absorba, y la línea vuelve a debilitarse.</p></div>
+        </div>
+        <p>Con cada elemento pasa algo parecido, pero a otra temperatura. El helio necesita mucho más calor que el hidrógeno. El calcio y los metales prefieren estrellas más frías. Y en las más frías de todas los átomos se juntan en moléculas, como el óxido de titanio (TiO).</p>
+    
+        <h3>El mapa de huellas</h3>
+        <p>Cada curva muestra en qué tipo de estrella se ve más marcada una huella. La línea punteada marca la estrella que estás viendo arriba.</p>
+        <div class="payne" id="payne"></div>
+    
+        <div class="callout">
+          <p><b>Una historia de la ciencia.</b> En 1925, Cecilia Payne estudió justo estas líneas y descubrió que las estrellas están hechas casi solo de hidrógeno y helio. Antes se creía que eran parecidas a la Tierra. La clave fue entender que una línea de hidrógeno débil no significa que falte hidrógeno: significa que la temperatura no es la adecuada para que absorba luz visible.</p>
+        </div>
+        <p>Con las mismas líneas los astrónomos también miden qué tan rápido gira una estrella y si se acerca o se aleja de nosotros, porque el movimiento corre las líneas ligeramente hacia el azul o hacia el rojo.</p>
+      </div>
+    </section>
+    
+    <section id="vida" class="block">
+      <div class="wrap">
+        <h2>Del color a la vida de la estrella</h2>
+        <p>En estrellas que aún convierten hidrógeno en helio en su núcleo, la temperatura superficial se relaciona con la masa y el tiempo que permanecen en esa etapa. Las más masivas consumen su combustible más rápido; las menos masivas pueden permanecer estables muchísimo más tiempo. El tipo espectral por sí solo no determina la edad ni la etapa evolutiva.</p>
+        <p>Los números son aproximados y se refieren a estrellas de la secuencia principal. Las barras usan una escala especial: cada tramo grande vale diez veces más tiempo.</p>
+        <div class="life" id="life"></div>
+    
+        <h3>Una estrella cambia de tipo mientras envejece</h3>
+        <ol class="steps">
+          <li><b>Nace</b><p>Una nube de gas y polvo se contrae y se calienta hasta que se enciende.</p></li>
+          <li><b>Vive de hidrógeno</b><p>Convierte hidrógeno en helio durante la mayor parte de su vida. El Sol está aquí, y es tipo G.</p></li>
+          <li><b>Se hincha</b><p>Cuando se agota el hidrógeno del centro, algunas estrellas se expanden y enfrían. Su tipo espectral cambia; no todas terminan con la misma temperatura ni del mismo modo.</p></li>
+          <li><b>Termina</b><p>Las estrellas pequeñas y medianas se apagan como enanas blancas. Las más masivas explotan como supernovas.</p></li>
+        </ol>
+      </div>
+    </section>
+    
+    </main>
+    
+    <footer>
+      <div class="wrap">
+        <p>Los espectros y las líneas de esta página son simulaciones para reconocer patrones, no mediciones de estrellas reales. Los colores están exagerados para distinguirlos. La secuencia O–B–A–F–G–K–M y las temperaturas aproximadas siguen la guía de <a href="https://openstax.org/books/astronomy-2e/pages/17-3-the-spectra-of-stars-and-brown-dwarfs" target="_blank" rel="noreferrer">OpenStax: espectros de estrellas y enanas marrones</a>.</p>
+      </div>
+    </footer>
+  </div>
+  <script>
+    import '../scripts/clasificador_estrellas.js';
+  </script>
+</SiteLayout>

@@ -1,0 +1,202 @@
+html[data-theme="dark"] .telescopes-page{--c-eq:var(--highlight);--c-alt:var(--text);--c-az:var(--accent)}
+.telescopes-page{--module-bg:var(--bg);--module-panel:var(--panel);--module-ink:var(--text);--module-muted:var(--muted);--module-line:var(--line);--module-soft:var(--panel-2);--module-focus:var(--accent);--module-accent:var(--accent);--module-accent-ink:var(--accent-ink);--display:var(--font-display);--body:var(--font-sans);--bench:#0B1E25;--bench-ink:#E7F0EF;--bench-muted:#86A3A9;--bench-grid:rgba(160,200,205,.07);--bench-line:#1E3A44;--ray:#FFB020;--ray-r:#FF5A4F;--ray-b:#59A8FF;--glass:rgba(110,210,235,.25);--glass-line:#7FD3E6;--c-eq:var(--accent);--c-alt:var(--text);--c-az:var(--highlight)}
+.telescopes-page *, .telescopes-page *::before, .telescopes-page *::after{box-sizing:border-box}
+/* Modo de luz roja: conserva la visión nocturna */
+.telescopes-page[data-observe-mode="red"]{
+  --module-bg:#0C0303; --module-panel:#170606; --module-ink:#FF6B5B; --module-muted:#C24B40; --module-line:#4A1512; --module-soft:#250A09;
+  --module-accent:#FF3B2E; --module-accent-ink:#0C0303; --module-focus:#FF9A8C;
+  --bench:#060101; --bench-ink:#FF7C6C; --bench-muted:#A8382E; --bench-grid:rgba(255,80,60,.07); --bench-line:#3F100D;
+  --ray:#FF5A3C; --ray-r:#FF9A85; --ray-b:#C93A2A; --glass:rgba(255,80,60,.2); --glass-line:#FF6B5B;
+  --c-eq:#FF3B2E; --c-alt:#FF9A8C; --c-az:#C24B40;
+}
+.telescopes-page{margin:0;background:var(--module-bg);color:var(--module-ink);font-family:var(--body);font-size:1rem;line-height:1.65;-webkit-text-size-adjust:100%}
+.telescopes-page h1, .telescopes-page h2, .telescopes-page h3{font-family:var(--display);font-stretch:118%;margin:0;color:var(--module-ink)}
+.telescopes-page h1{font-weight:800;font-size:clamp(2.2rem,6.4vw,4.4rem);line-height:1.02;letter-spacing:-.02em}
+.telescopes-page h2{font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:14px}
+.telescopes-page h3{font-weight:700;font-size:1.2rem;line-height:1.25;margin:26px 0 8px}
+.telescopes-page p{margin:0 0 14px;max-width:64ch}
+.telescopes-page a{color:var(--module-ink);text-underline-offset:3px}
+.telescopes-page small{font-size:.875em}
+.telescopes-page b, .telescopes-page strong{font-weight:600}
+.telescopes-page :focus-visible{outline:3px solid var(--module-focus);outline-offset:3px;border-radius:6px}
+.telescopes-page [hidden]{display:none!important}
+.telescopes-page .wrap{max-width:1140px;margin:0 auto;padding-left:clamp(16px,4vw,32px);padding-right:clamp(16px,4vw,32px)}
+.telescopes-page .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.telescopes-page .skip{position:absolute;left:12px;top:-60px;background:var(--module-ink);color:var(--module-bg);padding:10px 16px;border-radius:10px;z-index:10}
+.telescopes-page .skip:focus{top:12px}
+
+/* Encabezado */
+.telescopes-page .top{padding-top:30px;padding-bottom:26px}
+.telescopes-page .topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.telescopes-page .lead{font-size:clamp(1.05rem,2.1vw,1.28rem);color:var(--module-muted);margin:16px 0 22px;max-width:50ch;line-height:1.55}
+.telescopes-page .nav{display:flex;flex-wrap:wrap;gap:6px 22px}
+.telescopes-page .nav a{font-weight:600;text-decoration:none;border-bottom:2px solid var(--module-line);padding:2px 0}
+.telescopes-page .nav a:hover{border-bottom-color:var(--module-accent)}
+.telescopes-page .red-mode{flex:0 0 auto;min-height:44px}
+.telescopes-page .opt-hint{margin:0}
+.telescopes-page .preset-label{margin-top:14px}
+.telescopes-page .mount-title{margin-top:8px}
+.telescopes-page .latitude-control{margin:8px 0 0}
+.telescopes-page .sky-hint{text-align:center;margin:6px 0 0}
+.telescopes-page .legend .legend-eq{background:var(--c-eq)}
+.telescopes-page .legend .legend-az{background:var(--c-az)}
+.telescopes-page .legend .legend-alt{background:var(--c-alt)}
+.telescopes-page .time-control{margin-top:12px}
+
+/* Controles generales */
+.telescopes-page .seg{display:flex;flex-wrap:wrap;gap:8px}
+.telescopes-page .seg button, .telescopes-page .btn{appearance:none;border:2px solid var(--module-ink);background:transparent;color:var(--module-ink);font:600 .92rem var(--body);padding:8px 15px;border-radius:999px;min-height:44px;cursor:pointer;line-height:1.25}
+.telescopes-page .seg button:hover, .telescopes-page .btn:hover{background:var(--module-soft)}
+.telescopes-page .seg button[aria-pressed="true"]{background:var(--module-ink);color:var(--module-bg)}
+.telescopes-page .tabs button{padding:10px 20px;font-size:1rem}
+.telescopes-page .tabs button[aria-pressed="true"]{background:var(--module-accent);border-color:var(--module-accent);color:var(--module-accent-ink)}
+.telescopes-page .chk{display:inline-flex;align-items:center;gap:10px;cursor:pointer;min-height:44px}
+.telescopes-page .chk input{width:22px;height:22px;accent-color:var(--module-accent);margin:0}
+.telescopes-page .lbl2{font-size:.9rem;color:var(--module-muted);margin:0 0 6px;display:block}
+.telescopes-page input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;margin:0;cursor:pointer}
+.telescopes-page input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:6px;background:var(--module-line)}
+.telescopes-page input[type=range]::-moz-range-track{height:8px;border-radius:6px;background:var(--module-line)}
+.telescopes-page input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--module-accent);border:4px solid var(--module-panel);box-shadow:0 0 0 2px var(--module-ink);margin-top:-10px}
+.telescopes-page input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--module-accent);border:4px solid var(--module-panel);box-shadow:0 0 0 2px var(--module-ink)}
+.telescopes-page input[type=range]:focus-visible{outline:none}
+.telescopes-page input[type=range]:focus-visible::-webkit-slider-thumb{outline:3px solid var(--module-focus);outline-offset:3px}
+.telescopes-page input[type=range]:focus-visible::-moz-range-thumb{outline:3px solid var(--module-focus);outline-offset:3px}
+.telescopes-page .ctl{margin-bottom:16px}
+.telescopes-page .ctl .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.telescopes-page .ctl output{font:800 1.15rem var(--display);font-stretch:118%}
+
+/* Secciones */
+.telescopes-page .block{padding:64px 0;border-top:1px solid var(--module-line)}
+.telescopes-page .block.first{border-top:0;padding-top:12px}
+.telescopes-page .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 36px}
+@media (max-width:860px){.telescopes-page .two{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .card{background:var(--module-panel);border:1px solid var(--module-line);border-radius:20px;padding:22px}
+.telescopes-page .card h3{margin-top:0}
+.telescopes-page .card ul{margin:8px 0 0;padding-left:20px}
+.telescopes-page .card li{margin:4px 0}
+.telescopes-page .callout{background:var(--module-panel);border:1px solid var(--module-line);border-left:6px solid var(--module-accent);border-radius:14px;padding:16px 20px;margin:20px 0;max-width:none}
+.telescopes-page .callout p:last-child{margin-bottom:0}
+.telescopes-page .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0 6px}
+@media (max-width:860px){.telescopes-page .three{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .three div{background:var(--module-panel);border:1px solid var(--module-line);border-radius:16px;padding:16px}
+.telescopes-page .three b{display:block;font:700 1.05rem var(--display);font-stretch:112%;margin-bottom:4px}
+.telescopes-page .three p{margin:0;font-size:.95rem}
+
+/* Banco óptico */
+.telescopes-page .bench{background-color:var(--bench);background-image:linear-gradient(var(--bench-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bench-grid) 1px,transparent 1px);background-size:28px 28px;border-radius:22px;padding:14px;overflow-x:auto;box-shadow:inset 0 0 0 1px var(--bench-line);margin-top:18px}
+.telescopes-page .bench svg{display:block;width:100%;min-width:660px;height:auto}
+.telescopes-page .tube{fill:rgba(255,255,255,.035);stroke:var(--bench-muted);stroke-width:2}
+.telescopes-page .glass{fill:var(--glass);stroke:var(--glass-line);stroke-width:2}
+.telescopes-page .mirror{fill:none;stroke:var(--bench-ink);stroke-width:8;stroke-linecap:round}
+.telescopes-page .axisline{stroke:var(--bench-muted);stroke-dasharray:3 8;stroke-width:1;opacity:.6}
+.telescopes-page .leader{stroke:var(--bench-muted);stroke-width:1;opacity:.7}
+.telescopes-page .eye{fill:none;stroke:var(--bench-ink);stroke-width:2.5}
+.telescopes-page .pupil{fill:var(--bench-ink)}
+.telescopes-page .dotf{fill:#fff}
+.telescopes-page .txt{fill:var(--bench-ink);font:500 19px var(--body)}
+.telescopes-page .txt.dim{fill:var(--bench-muted)}
+.telescopes-page .ray{fill:none;stroke:var(--ray);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 6;animation:flow 1.1s linear infinite}
+.telescopes-page .ray.r{stroke:var(--ray-r)} .telescopes-page .ray.b{stroke:var(--ray-b)}
+@keyframes flow{to{stroke-dashoffset:-32}}
+@media (prefers-reduced-motion: reduce){.telescopes-page .ray{animation:none;stroke-dasharray:none}}
+.telescopes-page .optbar{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-top:18px}
+.telescopes-page .optinfo{margin-top:20px}
+
+/* Calculadora */
+.telescopes-page .calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;margin-top:22px}
+@media (max-width:900px){.telescopes-page .calc{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .presets{margin-bottom:18px}
+.telescopes-page .viewer{position:relative;width:min(100%,420px);aspect-ratio:1;margin:8px auto 10px;border-radius:50%;overflow:hidden}
+.telescopes-page .viewer canvas{display:block;width:100%;height:100%}
+.telescopes-page .vcap{text-align:center;color:var(--module-muted);font-size:.92rem;margin:0 auto;max-width:44ch}
+.telescopes-page[data-observe-mode="red"] .redable::after{content:"";position:absolute;inset:0;background:#ff3b2b;mix-blend-mode:multiply;pointer-events:none;border-radius:inherit}
+.telescopes-page .res{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){.telescopes-page .res{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .rc{background:var(--module-panel);border:1px solid var(--module-line);border-radius:16px;padding:14px 16px}
+.telescopes-page .rc dt{font-size:.85rem;color:var(--module-muted);line-height:1.3}
+.telescopes-page .rc dd{margin:2px 0 0}
+.telescopes-page .rc .v{font:800 1.5rem/1.15 var(--display);font-stretch:118%}
+.telescopes-page .rc .n{display:block;font-size:.86rem;color:var(--module-muted);line-height:1.4;margin-top:4px}
+.telescopes-page .rc.warn{border-color:var(--module-accent)}
+.telescopes-page .rc.warn .n{color:var(--module-ink)}
+.telescopes-page .eyecmp{display:flex;align-items:center;gap:16px;background:var(--module-panel);border:1px solid var(--module-line);border-radius:16px;padding:14px 16px;margin-bottom:12px}
+.telescopes-page .eyecmp svg{width:92px;height:92px;flex:none}
+.telescopes-page .eyecmp .c1{fill:var(--module-soft);stroke:var(--module-ink);stroke-width:2}
+.telescopes-page .eyecmp .c2{fill:var(--module-accent)}
+.telescopes-page .eyecmp p{margin:0;font-size:.92rem}
+
+/* Difracción */
+.telescopes-page .airy{position:relative;width:min(100%,400px);aspect-ratio:1;border-radius:18px;overflow:hidden;background:#000;box-shadow:inset 0 0 0 1px var(--bench-line)}
+.telescopes-page .airy canvas{display:block;width:100%;height:100%}
+.telescopes-page .verdict{font:800 1.3rem/1.25 var(--display);font-stretch:112%;margin:6px 0 8px}
+.telescopes-page .limits{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.telescopes-page .limits div{background:var(--module-panel);border:1px solid var(--module-line);border-radius:14px;padding:10px 14px}
+.telescopes-page .limits b{display:block;font:800 1.25rem var(--display);font-stretch:118%}
+.telescopes-page .limits small{color:var(--module-muted)}
+
+/* Monturas */
+.telescopes-page .mnt{background:var(--module-panel);border:1px solid var(--module-line);border-radius:20px;padding:18px}
+.telescopes-page .mnt svg{display:block;width:100%;height:auto;max-height:340px}
+.telescopes-page .mnt .ground{stroke:var(--module-muted);stroke-width:2}
+.telescopes-page .mnt .leg{stroke:var(--module-ink);stroke-width:5;stroke-linecap:round;fill:none}
+.telescopes-page .mnt .metal{fill:var(--module-soft);stroke:var(--module-ink);stroke-width:2.5}
+.telescopes-page .mnt .tubei{fill:var(--module-panel);stroke:var(--module-ink);stroke-width:3}
+.telescopes-page .mnt .arrow{fill:none;stroke:var(--module-accent);stroke-width:3;stroke-linecap:round}
+.telescopes-page .mnt .thin{fill:none;stroke:var(--module-muted);stroke-width:1.5;stroke-dasharray:5 5}
+.telescopes-page .mnt .polar{stroke:var(--module-ink);stroke-width:12;stroke-linecap:round}
+.telescopes-page .mnt .weight{fill:var(--module-ink)}
+.telescopes-page .mnt text{fill:var(--module-ink);font:500 13px var(--body)}
+.telescopes-page .mnt text.acc{fill:var(--module-accent);font-weight:600}
+.telescopes-page .trk{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:22px;align-items:start;margin-top:20px}
+@media (max-width:900px){.telescopes-page .trk{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .skyplot, .telescopes-page .chartbox{background:var(--module-panel);border:1px solid var(--module-line);border-radius:20px;padding:12px}
+.telescopes-page .skyplot svg{display:block;width:100%;max-width:300px;margin:0 auto;height:auto}
+.telescopes-page .chartbox{overflow-x:auto}
+.telescopes-page .chartbox svg{display:block;width:100%;min-width:520px;height:auto}
+.telescopes-page .sk-c{fill:none;stroke:var(--module-line);stroke-width:1.5}
+.telescopes-page .sk-t{fill:var(--module-muted);font:500 13px var(--body)}
+.telescopes-page .sk-path{fill:none;stroke:var(--module-muted);stroke-width:2;stroke-dasharray:4 5}
+.telescopes-page .sk-dot{fill:var(--module-accent);stroke:var(--module-panel);stroke-width:3}
+.telescopes-page .ch-g{stroke:var(--module-line);stroke-width:1}
+.telescopes-page .ch-t{fill:var(--module-muted);font:500 13px var(--body)}
+.telescopes-page .ch-cur{stroke:var(--module-ink);stroke-width:1.5;stroke-dasharray:4 4}
+.telescopes-page .legend{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:10px 0 0;padding:0;font-size:.9rem}
+.telescopes-page .legend i{display:inline-block;width:26px;height:4px;border-radius:2px;vertical-align:middle;margin-right:8px}
+.telescopes-page .readout{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+@media (max-width:640px){.telescopes-page .readout{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .readout .rc .n{font-size:.92rem}
+.telescopes-page .playrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+
+/* Elegir */
+.telescopes-page .qs{display:grid;gap:18px;margin-top:20px}
+.telescopes-page .q{background:var(--module-panel);border:1px solid var(--module-line);border-radius:18px;padding:16px 18px}
+.telescopes-page .q h3{margin:0 0 10px;font-size:1.05rem}
+.telescopes-page .pick{display:grid;gap:16px;margin-top:22px}
+.telescopes-page .pk{background:var(--module-panel);border:1px solid var(--module-line);border-radius:22px;padding:24px}
+.telescopes-page .pk.top1{border:2px solid var(--module-accent)}
+.telescopes-page .pk .tag{display:inline-block;background:var(--module-accent);color:var(--module-accent-ink);font:600 .85rem var(--body);padding:3px 12px;border-radius:999px;margin-bottom:10px}
+.telescopes-page .pk.alt .tag{background:var(--module-soft);color:var(--module-ink)}
+.telescopes-page .pk h3{margin:0 0 2px;font-size:clamp(1.25rem,2.4vw,1.6rem)}
+.telescopes-page .pk .sub{color:var(--module-muted);margin-bottom:10px}
+.telescopes-page .pk .price{font:800 1.1rem var(--display);font-stretch:118%;margin-bottom:8px}
+.telescopes-page .pk ul{margin:6px 0 12px;padding-left:20px}
+.telescopes-page .pk li{margin:3px 0}
+.telescopes-page .pips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 16px;margin:14px 0}
+@media (max-width:640px){.telescopes-page .pips{grid-template-columns:1fr 1fr}}
+.telescopes-page .pip span{display:block;font-size:.85rem;color:var(--module-muted)}
+.telescopes-page .pip i{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--module-soft);margin-right:4px;box-shadow:inset 0 0 0 1px var(--module-line)}
+.telescopes-page .pip i.on{background:var(--module-ink)}
+.telescopes-page .care{padding:12px 14px;border-radius:12px;background:var(--module-soft);margin:0;max-width:none;font-size:.95rem}
+.telescopes-page .myths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+@media (max-width:760px){.telescopes-page .myths{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .myths div{background:var(--module-panel);border:1px solid var(--module-line);border-radius:16px;padding:16px 18px}
+.telescopes-page .myths b{display:block;font:700 1.05rem var(--display);font-stretch:112%;margin-bottom:4px}
+.telescopes-page .myths p{margin:0;font-size:.96rem}
+.telescopes-page .steps{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;counter-reset:s}
+@media (max-width:760px){.telescopes-page .steps{grid-template-columns:minmax(0,1fr)}}
+.telescopes-page .steps li{counter-increment:s;background:var(--module-panel);border:1px solid var(--module-line);border-radius:16px;padding:16px}
+.telescopes-page .steps li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--module-accent);color:var(--module-accent-ink);font:800 1rem var(--display);margin-bottom:8px}
+.telescopes-page .steps b{display:block;font:700 1.05rem var(--display);font-stretch:112%;margin-bottom:4px}
+.telescopes-page .steps p{margin:0;font-size:.95rem}
+.telescopes-page footer{border-top:1px solid var(--module-line);padding:30px 0 48px;color:var(--module-muted);font-size:.92rem}
+.telescopes-page footer p{max-width:72ch}
