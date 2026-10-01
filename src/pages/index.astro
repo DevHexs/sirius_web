@@ -1,0 +1,79 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import '../styles/portal.css';
+import logo from '../assets/logo.png';
+
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+---
+
+<SiteLayout
+  title="Portal Sirius — Club de Astronomía"
+  description="Explora astronomía con actividades y simulaciones didácticas de Sirius SAAC."
+>
+  <div class="container">
+    <header>
+      <img src={logo.src} alt="Logo Sirius SAAC" class="logo" />
+      <div class="header-content">
+        <div class="eyebrow">Sirius SAAC · El poder de la innovación</div>
+        <h1>Plataforma de Simulación Sirius</h1>
+        <p class="sub">Explora el cosmos y desafía modelos matemáticos interactuando con nuestros módulos de clasificación galáctica y simulación de cohetes.</p>
+      </div>
+    </header>
+
+    <div class="portal-grid">
+      <a href={`${base}duelo_galaxias.html`} class="card card-galaxy" id="cardGalaxy">
+        <div class="card-top">
+          <span class="card-badge">Módulo A-1</span>
+          <h2 class="card-title">Duelo de Clasificación Galáctica</h2>
+          <p class="card-desc">Un objeto misterioso observado por telescopio ha aparecido en la lente. Clasifica el tipo de galaxia (espiral, elíptica o irregular) antes que el clasificador usando telemetría astronómica. ¿Podrás superar sus reglas?</p>
+        </div>
+        <div class="card-footer">
+          <span class="action-text" style="color: var(--flame);">
+            Iniciar Clasificación
+            <svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <a href={`${base}simulador_cohetes.html`} class="card card-rocket" id="cardRocket">
+        <div class="card-top">
+          <span class="card-badge">Módulo R-9</span>
+          <h2 class="card-title">Simulador Crítico de Cohetes</h2>
+          <p class="card-desc">Configura masa, empuje, tiempo de combustión y arrastre del aire para lanzar cohetes suborbitales. Pon a prueba las limitaciones del modelo de vuelo simplificado.</p>
+        </div>
+        <div class="card-footer">
+          <span class="action-text" style="color: var(--telemetry);">
+            Abrir Simulador
+            <svg class="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <div class="status-panel">
+      <div class="status-item">
+        <span class="status-indicator"></span>
+        <span>SISTEMAS ONLINE</span>
+      </div>
+      <div>CONEXIÓN DE TELEMETRÍA: ACTIVA</div>
+      <div>V.2.6.0</div>
+    </div>
+  </div>
+
+  <footer>&copy; 2026 SIRIUS SAAC &bull; ASTRONOMÍA</footer>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${event.clientX - rect.left}px`);
+        card.style.setProperty('--y', `${event.clientY - rect.top}px`);
+      });
+    });
+  </script>
+</SiteLayout>

@@ -36,8 +36,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0501a.jpg',
     features: { ellipticity: 0.15, armContrast: 0.78, asymmetry: 0.08 },
     telemetryKids: { shape: 'Casi redonda', arms: '¡Muy brillantes!', chaos: 'Muy ordenada' },
-    caveat: 'La IA midió un bajo nivel de asimetría, baja elipticidad y un contraste de brazos muy marcado, clasificándola correctamente como espiral. NGC 1300 es el prototipo perfecto de galaxia espiral barrada.',
-    caveatKids: '¡Es un remolino perfecto! Tiene unos brazos brillantes que giran y una barra en el medio. Tanto tú como la IA vieron los brazos fácilmente y acertaron.'
+    caveat: 'El clasificador midió un bajo nivel de asimetría, baja elipticidad y un contraste de brazos muy marcado, clasificándola correctamente como espiral. NGC 1300 es el prototipo perfecto de galaxia espiral barrada.',
+    caveatKids: '¡Es un remolino perfecto! Tiene unos brazos brillantes que giran y una barra en el medio. Tanto tú como el clasificador vieron los brazos fácilmente y acertaron.'
   },
   {
     name: 'M101 (Galaxia del Molinete)',
@@ -45,8 +45,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0602a.jpg',
     features: { ellipticity: 0.04, armContrast: 0.85, asymmetry: 0.06 },
     telemetryKids: { shape: 'Circular', arms: '¡Brazos gigantes!', chaos: 'Muy ordenada' },
-    caveat: 'Al estar orientada completamente de frente, su redondez (baja elipticidad) y el altísimo contraste de sus brazos permitieron que la IA acertara de forma contundente.',
-    caveatKids: 'Esta galaxia está de frente y es redondita. Como sus brazos brillantes destacan tanto en el espacio, ¡la IA y tú acertaron de inmediato!'
+    caveat: 'Al estar orientada completamente de frente, su redondez (baja elipticidad) y el altísimo contraste de sus brazos permitieron que el clasificador acertara de forma contundente.',
+    caveatKids: 'Esta galaxia está de frente y es redondita. Como sus brazos brillantes destacan tanto en el espacio, ¡el clasificador y tú acertaron de inmediato!'
   },
   {
     name: 'M104 (Galaxia del Sombrero)',
@@ -54,8 +54,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0328a.jpg',
     features: { ellipticity: 0.65, armContrast: 0.12, asymmetry: 0.05 },
     telemetryKids: { shape: 'Estirada como huevo', arms: 'Sin brazos visibles', chaos: 'Muy ordenada' },
-    caveat: '¡La IA falló! Midió una elipticidad muy alta (0.65) por la inclinación y un bajo contraste de brazos porque están comprimidos de canto. La IA la clasificó como elíptica. Sin embargo, tus ojos humanos pudieron identificar el disco oscuro de polvo que cruza el centro, característico de una espiral vista casi de canto.',
-    caveatKids: '¡La IA se confundió! Como la vemos inclinada de costado, la IA pensó que era un huevo liso sin brazos (elíptica). Pero tus ojos de explorador vieron la franja oscura de polvo en medio, ¡que delata que es una espiral de canto!'
+    caveat: '¡El clasificador falló! Midió una elipticidad muy alta (0.65) por la inclinación y un bajo contraste de brazos porque están comprimidos de canto. El clasificador la clasificó como elíptica. Sin embargo, tus ojos humanos pudieron identificar el disco oscuro de polvo que cruza el centro, característico de una espiral vista casi de canto.',
+    caveatKids: '¡El clasificador se confundió! Como la vemos inclinada de costado, el clasificador pensó que era un huevo liso sin brazos (elíptica). Pero tus ojos de explorador vieron la franja oscura de polvo en medio, ¡que delata que es una espiral de canto!'
   },
   {
     name: 'M51 (Galaxia del Remolino)',
@@ -63,8 +63,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0506a.jpg',
     features: { ellipticity: 0.10, armContrast: 0.88, asymmetry: 0.38 },
     telemetryKids: { shape: 'Circular', arms: '¡Brazos marcados!', chaos: 'Un poco despeinada' },
-    caveat: '¡La IA falló! Midió una asimetría global elevada (0.38) debido a la presencia de la galaxia compañera (NGC 5195) a un lado, catalogándola como "irregular". Los humanos reconocemos de inmediato la majestuosa estructura espiral de la galaxia principal.',
-    caveatKids: '¡La IA se confundió por culpa del vecino! Vio a la pequeña galaxia compañera a un lado y pensó que era un caos sin forma (irregular). Pero tú notaste los hermosos brazos espirales del remolino.'
+    caveat: '¡El clasificador falló! Midió una asimetría global elevada (0.38) debido a la presencia de la galaxia compañera (NGC 5195) a un lado, catalogándola como "irregular". Los humanos reconocemos de inmediato la majestuosa estructura espiral de la galaxia principal.',
+    caveatKids: '¡El clasificador se confundió por culpa del vecino! Vio a la pequeña galaxia compañera a un lado y pensó que era un caos sin forma (irregular). Pero tú notaste los hermosos brazos espirales del remolino.'
   },
   {
     name: 'NGC 6946 (Galaxia de los Fuegos Artificiales)',
@@ -72,7 +72,7 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw2101a.jpg',
     features: { ellipticity: 0.06, armContrast: 0.82, asymmetry: 0.12 },
     telemetryKids: { shape: 'Circular', arms: '¡Brazos brillantes!', chaos: 'Muy ordenada' },
-    caveat: 'El gran contraste de sus brazos y su forma circular al estar orientada de frente le permitieron al clasificador de la IA catalogarla correctamente como espiral. Se le apoda galaxia de los fuegos artificiales debido a su alta frecuencia de supernovas.',
+    caveat: 'El gran contraste de sus brazos y su forma circular al estar orientada de frente permitieron al clasificador catalogarla correctamente como espiral. Se le apoda galaxia de los fuegos artificiales debido a su alta frecuencia de supernovas.',
     caveatKids: '¡Un acierto para todos! Es un remolino circular muy claro en el cielo. Se le llama "fuegos artificiales" porque en ella explotan muchas estrellas (supernovas).'
   },
   {
@@ -81,8 +81,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0815f.jpg',
     features: { ellipticity: 0.05, armContrast: 0.02, asymmetry: 0.03 },
     telemetryKids: { shape: 'Redondita', arms: 'Sin brazos', chaos: 'Muy ordenada' },
-    caveat: 'La IA midió una forma casi circular, nula estructura de brazos y bajísima asimetría, acertando que es elíptica. M87 es una galaxia elíptica gigante que alberga uno de los agujeros negros más masivos conocidos.',
-    caveatKids: 'Es una nube gigante de estrellas en forma de bola lisa. Como no tiene brazos ni formas raras, la IA acertó que es elíptica. ¡Alberga un agujero negro gigante en su centro!'
+    caveat: 'El clasificador midió una forma casi circular, nula estructura de brazos y bajísima asimetría, acertando que es elíptica. M87 es una galaxia elíptica gigante que alberga uno de los agujeros negros más masivos conocidos.',
+    caveatKids: 'Es una nube gigante de estrellas en forma de bola lisa. Como no tiene brazos ni formas raras, el clasificador acertó que es elíptica. ¡Alberga un agujero negro gigante en su centro!'
   },
   {
     name: 'NGC 4660',
@@ -90,8 +90,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0815b.jpg',
     features: { ellipticity: 0.48, armContrast: 0.03, asymmetry: 0.04 },
     telemetryKids: { shape: 'Ovalada', arms: 'Sin brazos', chaos: 'Muy ordenada' },
-    caveat: 'A pesar de estar notablemente estirada, la elipticidad medida (0.48) no superó el umbral crítico de la IA para catalogarla directamente, pero la ausencia total de brazos la colocó correctamente en el grupo elíptico.',
-    caveatKids: 'Parece una galleta ovalada y lisa. Al no tener brazos de remolino, la IA supo que es una galaxia elíptica.'
+    caveat: 'A pesar de estar notablemente estirada, la elipticidad medida (0.48) no superó el umbral que usa el clasificador para catalogarla directamente, pero la ausencia total de brazos la colocó correctamente en el grupo elíptico.',
+    caveatKids: 'Parece una galleta ovalada y lisa. Al no tener brazos de remolino, el clasificador supo que es una galaxia elíptica.'
   },
   {
     name: 'NGC 1132',
@@ -99,8 +99,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic0804a.jpg',
     features: { ellipticity: 0.58, armContrast: 0.04, asymmetry: 0.05 },
     telemetryKids: { shape: 'Estirada', arms: 'Sin brazos', chaos: 'Muy ordenada' },
-    caveat: 'Con una elipticidad alta de 0.58 y sin estructura de brazos, el clasificador de la IA determinó sin problemas que es una elíptica. Se la conoce como un "fósil cósmico", el resultado de múltiples fusiones galácticas.',
-    caveatKids: 'Esta gran bola ovalada es el resultado de muchas galaxias que chocaron y se unieron en una sola gran elíptica. La IA acertó al verla lisa y alargada.'
+    caveat: 'Con una elipticidad alta de 0.58 y sin estructura de brazos, el clasificador determinó sin problemas que es una elíptica. Se la conoce como un "fósil cósmico", el resultado de múltiples fusiones galácticas.',
+    caveatKids: 'Esta gran bola ovalada es el resultado de muchas galaxias que chocaron y se unieron en una sola gran elíptica. El clasificador acertó al verla lisa y alargada.'
   },
   {
     name: 'M60',
@@ -108,8 +108,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic1419b.jpg',
     features: { ellipticity: 0.22, armContrast: 0.03, asymmetry: 0.05 },
     telemetryKids: { shape: 'Ovalada', arms: 'Sin brazos', chaos: 'Muy ordenada' },
-    caveat: 'La IA midió una forma ovalada pero sumamente uniforme (baja elipticidad, nulo contraste de brazos y bajísima asimetría), catalogándola correctamente como elíptica. Es una de las galaxias elípticas gigantes más masivas en el Cúmulo de Virgo.',
-    caveatKids: 'Es una bola lisa ovalada de estrellas viejas. Sin brazos espirales ni formas raras, la IA y tú la clasificaron correctamente como elíptica.'
+    caveat: 'El clasificador midió una forma ovalada pero sumamente uniforme (baja elipticidad, nulo contraste de brazos y bajísima asimetría), catalogándola correctamente como elíptica. Es una de las galaxias elípticas gigantes más masivas en el Cúmulo de Virgo.',
+    caveatKids: 'Es una bola lisa ovalada de estrellas viejas. Sin brazos espirales ni formas raras, el clasificador y tú la clasificaron correctamente como elíptica.'
   },
   {
     name: 'M59 (Messier 59)',
@@ -117,8 +117,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw1921a.jpg',
     features: { ellipticity: 0.35, armContrast: 0.02, asymmetry: 0.04 },
     telemetryKids: { shape: 'Ovalada', arms: 'Sin brazos', chaos: 'Muy ordenada' },
-    caveat: 'La IA la clasificó de manera correcta como elíptica al medir una elipticidad moderada (0.35) pero con niveles insignificantes de asimetría y estructura de brazos.',
-    caveatKids: 'Es una galaxia lisa y alargada. Al no tener remolinos ni estar desordenada, la IA acertó al clasificarla como elíptica.'
+    caveat: 'El clasificador la clasificó de manera correcta como elíptica al medir una elipticidad moderada (0.35) pero con niveles insignificantes de asimetría y estructura de brazos.',
+    caveatKids: 'Es una galaxia lisa y alargada. Al no tener remolinos ni estar desordenada, el clasificador acertó al clasificarla como elíptica.'
   },
   {
     name: 'NGC 4449',
@@ -126,8 +126,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/heic1203a.jpg',
     features: { ellipticity: 0.22, armContrast: 0.15, asymmetry: 0.42 },
     telemetryKids: { shape: 'Casi redonda', arms: 'Sin brazos', chaos: '¡Súper desordenada!' },
-    caveat: 'La IA detectó una asimetría muy por encima del límite (0.42), logrando clasificarla correctamente como irregular. NGC 4449 tiene una tasa altísima de formación estelar, lo que le da su forma caótica y azulada.',
-    caveatKids: 'Esta galaxia es una fiesta ruidosa de estrellas nuevas de color azul. Está tan desordenada que la IA y tú adivinaron que es irregular sin dudarlo.'
+    caveat: 'El clasificador detectó una asimetría muy por encima del límite (0.42), logrando clasificarla correctamente como irregular. NGC 4449 tiene una tasa altísima de formación estelar, lo que le da su forma caótica y azulada.',
+    caveatKids: 'Esta galaxia es una fiesta ruidosa de estrellas nuevas de color azul. Está tan desordenada que el clasificador y tú adivinaron que es irregular sin dudarlo.'
   },
   {
     name: 'NGC 1427A',
@@ -135,8 +135,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0509a.jpg',
     features: { ellipticity: 0.35, armContrast: 0.12, asymmetry: 0.48 },
     telemetryKids: { shape: 'Ovalada', arms: 'Sin brazos', chaos: '¡Súper desordenada!' },
-    caveat: 'Esta galaxia está siendo despedazada por la gravedad de un cúmulo cercano. La IA identificó la gran asimetría (0.48) causada por este efecto y acertó la clasificación.',
-    caveatKids: 'Esta galaxia está siendo estirada y rota por la gravedad de un grupo de vecinas. Al verla tan deforme y caótica, la IA supo que era irregular.'
+    caveat: 'Esta galaxia está siendo despedazada por la gravedad de un cúmulo cercano. El clasificador identificó la gran asimetría (0.48) causada por este efecto y acertó la clasificación.',
+    caveatKids: 'Esta galaxia está siendo estirada y rota por la gravedad de un grupo de vecinas. Al verla tan deforme y caótica, el clasificador supo que era irregular.'
   },
   {
     name: 'IC 4710',
@@ -144,8 +144,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw1818a.jpg',
     features: { ellipticity: 0.18, armContrast: 0.14, asymmetry: 0.32 },
     telemetryKids: { shape: 'Casi redonda', arms: 'Sin brazos', chaos: 'Un poco despeinada' },
-    caveat: '¡La IA falló! Midió una asimetría global de 0.32, por debajo del umbral de 0.35. Como no tiene brazos definidos ni elipticidad alta, la IA asumió que es elíptica. Sin embargo, visualmente carece de la concentración central simétrica de una elíptica y muestra nubes caóticas de formación estelar.',
-    caveatKids: '¡La IA falló! Esta galaxia es una nube esponjosa sin forma. Como no es súper asimétrica ni tiene brazos, la IA asumió que era un huevo liso (elíptica). Pero tus ojos vieron que no tiene un centro ordenado.'
+    caveat: '¡El clasificador falló! Midió una asimetría global de 0.32, por debajo del umbral de 0.35. Como no tiene brazos definidos ni elipticidad alta, el clasificador asumió que es elíptica. Sin embargo, visualmente carece de la concentración central simétrica de una elíptica y muestra nubes caóticas de formación estelar.',
+    caveatKids: '¡El clasificador falló! Esta galaxia es una nube esponjosa sin forma. Como no es súper asimétrica ni tiene brazos, el clasificador asumió que era un huevo liso (elíptica). Pero tus ojos vieron que no tiene un centro ordenado.'
   },
   {
     name: 'AM 0644-741 (Anillo de Lindsay-Shapley)',
@@ -153,8 +153,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/opo0415a.jpg',
     features: { ellipticity: 0.38, armContrast: 0.15, asymmetry: 0.44 },
     telemetryKids: { shape: 'Ovalada', arms: 'Anillo brillante', chaos: '¡Súper desordenada!' },
-    caveat: '¡La IA acertó! Catalogó esta estructura peculiar como irregular debido a su alta asimetría (0.44), generada por una colisión cósmica que empujó el núcleo y expandió un anillo de gas y estrellas jóvenes.',
-    caveatKids: '¡La IA acertó! Catalogó esta extraña forma como irregular debido a su gran desorden, causado por un choque espacial que empujó su centro y creó un anillo de estrellas.'
+    caveat: '¡El clasificador acertó! Catalogó esta estructura peculiar como irregular debido a su alta asimetría (0.44), generada por una colisión cósmica que empujó el núcleo y expandió un anillo de gas y estrellas jóvenes.',
+    caveatKids: '¡El clasificador acertó! Catalogó esta extraña forma como irregular debido a su gran desorden, causado por un choque espacial que empujó su centro y creó un anillo de estrellas.'
   },
   {
     name: 'IC 10',
@@ -162,8 +162,8 @@ const REAL_GALAXIES = [
     imageUrl: 'https://cdn.esahubble.org/archives/images/screen/potw1924a.jpg',
     features: { ellipticity: 0.20, armContrast: 0.12, asymmetry: 0.41 },
     telemetryKids: { shape: 'Casi redonda', arms: 'Sin brazos', chaos: '¡Súper desordenada!' },
-    caveat: 'La IA detectó una asimetría por encima del umbral (0.41), clasificándola de forma correcta como irregular. IC 10 es una galaxia enana starburst con una densidad de estrellas masivas en formación inusualmente alta.',
-    caveatKids: 'Es una pequeña galaxia enana muy desordenada y llena de gas formando estrellas a toda prisa. Su gran caos hizo que la IA acertara clasificándola como irregular.'
+    caveat: 'El clasificador detectó una asimetría por encima del umbral (0.41), clasificándola de forma correcta como irregular. IC 10 es una galaxia enana starburst con una densidad de estrellas masivas en formación inusualmente alta.',
+    caveatKids: 'Es una pequeña galaxia enana muy desordenada y llena de gas formando estrellas a toda prisa. Su gran caos hizo que el clasificador acertara clasificándola como irregular.'
   }
 ];
 
@@ -437,7 +437,7 @@ function caveatText(obj, aiGuess, truth) {
   if (obj && obj.caveat) {
     return obj.caveat;
   }
-  return 'En esta ronda la IA acertó — pero recuerden: acertar con métricas simples no significa que "entienda" la física del objeto. Con otro objeto, esas mismas reglas pueden fallar.';
+  return 'En esta ronda el clasificador acertó — pero recuerden: acertar con métricas simples no significa que "entienda" la física del objeto. Con otro objeto, esas mismas reglas pueden fallar.';
 }
 
 function resolveRound(humanGuess) {
@@ -464,7 +464,7 @@ function resolveRound(humanGuess) {
   $('aiVerdict').className = 'verdict ' + (aiCorrect ? 'correct' : 'wrong');
 
   $('caveat').textContent = caveatText(current, ai.guess, truth);
-  $('revealBtn').textContent = '¿Qué pistas midió la IA — y cuáles se le pasaron? ▾';
+  $('revealBtn').textContent = '¿Qué pistas midió el clasificador — y cuáles se le pasaron? ▾';
   $('resultCard').classList.add('show');
   $('nextBtn').classList.add('show');
 
@@ -487,8 +487,8 @@ $('revealBtn').addEventListener('click', () => {
   const c = $('caveat');
   c.classList.toggle('show');
   $('revealBtn').textContent = c.classList.contains('show')
-    ? '¿Qué pistas midió la IA — y cuáles se le pasaron? ▴'
-    : '¿Qué pistas midió la IA — y cuáles se le pasaron? ▾';
+    ? '¿Qué pistas midió el clasificador — y cuáles se le pasaron? ▴'
+    : '¿Qué pistas midió el clasificador — y cuáles se le pasaron? ▾';
 });
 
 const btnToggleMode = $('btnToggleMode');
@@ -500,4 +500,3 @@ if (btnToggleMode) {
 }
 
 starfield(canvas.getBoundingClientRect().width, canvas.getBoundingClientRect().height);
-

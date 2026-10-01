@@ -28,7 +28,7 @@ function updateAiCardTexts() {
   const isShow = $('aiCard').classList.contains('show');
   if (!isShow) return;
 
-  const titleText = currentMode === 'normal' ? 'IA DE VUELO' : '🤖 ROBOT ASISTENTE';
+  const titleText = currentMode === 'normal' ? 'MODELO DE VUELO' : '🤖 ROBOT ASISTENTE';
   const confidenceText = currentMode === 'normal' ? 'confianza del modelo: 96%' : '¡seguridad de mi cálculo: 96%! ⭐';
   
   $('aiCard').querySelector('.ai-badge').textContent = titleText;
@@ -39,9 +39,9 @@ function updateAiCardTexts() {
     contentDiv.innerHTML = `<strong>Ángulo recomendado: 45°</strong> — según mi modelo, este ángulo maximiza el alcance del cohete.`;
     contentDiv.nextElementSibling.textContent = `Basé este cálculo en las ecuaciones clásicas de tiro parabólico.`;
     $('revealBtn').textContent = $('caveat').classList.contains('show') 
-      ? '¿Qué información NO consideró la IA? ▴' 
-      : '¿Qué información NO consideró la IA? ▾';
-    $('caveat').innerHTML = `La IA usó un modelo <strong>sin fricción del aire</strong>. En la vida real, el arrastre frena más al cohete
+      ? '¿Qué información NO consideró el modelo? ▴' 
+      : '¿Qué información NO consideró el modelo? ▾';
+    $('caveat').innerHTML = `Este cálculo ideal ignora la <strong>fricción del aire</strong>. En la vida real, el arrastre frena más al cohete
       mientras más tiempo y más rápido vuela — y eso cambia cuál ángulo da el mejor resultado.
       Prueba a subir el "Arrastre del aire" al máximo y lanza con distintos ángulos:
       <strong>¿45° sigue siendo el mejor, o hay un ángulo más bajo que gana?</strong>`;
@@ -239,8 +239,8 @@ function drawAchievementBadge(ctx, w, h, result) {
     const k = dragK[drag.value];
     const aiResult = simulate(m, T, bt, k, lastAiAngle);
     if (result.range > aiResult.range) {
-      title = "¡CAMPEÓN VS IA! 🏆";
-      desc = "¡Superaste el consejo de la IA!";
+      title = "¡CAMPEÓN VS. MODELO! 🏆";
+      desc = "¡Superaste la recomendación del modelo!";
     }
   }
 
@@ -498,8 +498,8 @@ function addLogRow(n, ang, dragLbl, apogee, range, vsAi) {
   let tagHtml = '<span class="muted">—</span>';
   if (vsAi !== null) {
     tagHtml = vsAi
-      ? `<span class="tag better">${currentMode === 'normal' ? 'superó a la IA' : '¡Superaste a la IA! 🏆'}</span>`
-      : `<span class="tag worse">${currentMode === 'normal' ? 'bajo la IA' : 'Bajo la IA 🤖'}</span>`;
+      ? `<span class="tag better">${currentMode === 'normal' ? 'superó el resultado del modelo' : '¡Superaste el resultado del modelo! 🏆'}</span>`
+      : `<span class="tag worse">${currentMode === 'normal' ? 'por debajo de lo que predice el modelo' : '¡Llegaste menos lejos que el modelo! 🤖'}</span>`;
   }
   tr.innerHTML = `<td>${n}</td><td>${ang}°</td><td>${dragLbl}</td><td>${fmt(apogee)} m</td><td>${fmt(range)} m</td><td>${tagHtml}</td>`;
   body.prepend(tr);
@@ -546,8 +546,8 @@ $('revealBtn').addEventListener('click', () => {
   c.classList.toggle('show');
   if (currentMode === 'normal') {
     $('revealBtn').textContent = c.classList.contains('show')
-      ? '¿Qué información NO consideró la IA? ▴'
-      : '¿Qué información NO consideró la IA? ▾';
+      ? '¿Qué información NO consideró el modelo? ▴'
+      : '¿Qué información NO consideró el modelo? ▾';
   } else {
     $('revealBtn').textContent = c.classList.contains('show')
       ? '¿Por qué fallará mi cálculo si hay viento? ▴'

@@ -1,0 +1,95 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import '../styles/simulador_cohetes.css';
+
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+---
+
+<SiteLayout
+  title="Simulador de Cohetes — Sirius SAAC"
+  description="Ajusta parámetros de un cohete y explora las limitaciones de un modelo simplificado de vuelo."
+>
+  <div class="wrap">
+    <header>
+      <a href={`${base}index.html`} class="back-btn">← Volver al portal</a>
+      <div class="eyebrow">Sirius SAAC · El poder de la innovación</div>
+      <h1>Misión crítica: cohetes bajo la lupa del modelo</h1>
+      <p class="sub">Ajusta el cohete, lánzalo y compara el vuelo con una recomendación basada en un modelo simplificado que ignora el aire. Tu misión: descubrir cuándo deja de funcionar.</p>
+    </header>
+
+    <div class="grid">
+      <div class="panel">
+        <div class="mode-container">
+          <button id="btnToggleMode" class="mode-toggle-btn" aria-label="Cambiar modo de juego">🔬 Modo Científico</button>
+        </div>
+
+        <h2 id="panelTitle">Parámetros del cohete</h2>
+
+        <div class="field">
+          <label for="mass"><span id="lblMass">Masa</span> <span class="val" id="massVal">6 kg</span></label>
+          <input type="range" id="mass" min="2" max="20" step="0.5" value="6" aria-label="Ajustar masa del cohete">
+        </div>
+        <div class="field">
+          <label for="thrust"><span id="lblThrust">Empuje</span> <span class="val" id="thrustVal">220 N</span></label>
+          <input type="range" id="thrust" min="60" max="450" step="10" value="220" aria-label="Ajustar empuje del cohete">
+        </div>
+        <div class="field">
+          <label for="burn"><span id="lblBurn">Tiempo de quema</span> <span class="val" id="burnVal">2.5 s</span></label>
+          <input type="range" id="burn" min="0.5" max="6" step="0.1" value="2.5" aria-label="Ajustar tiempo de quema">
+        </div>
+        <div class="field">
+          <label for="drag"><span id="lblDrag">Arrastre del aire</span> <span class="val" id="dragVal">Medio</span></label>
+          <input type="range" id="drag" min="0" max="3" step="1" value="1" aria-label="Ajustar arrastre del aire">
+        </div>
+        <div class="field">
+          <label for="angle"><span id="lblAngle">Ángulo de lanzamiento</span> <span class="val" id="angleVal">45°</span></label>
+          <input type="range" id="angle" min="10" max="80" step="1" value="45" aria-label="Ajustar ángulo de lanzamiento">
+        </div>
+
+        <div class="btnrow">
+          <button id="launchBtn" aria-label="Lanzar simulación del cohete">🚀 Lanzar cohete</button>
+          <button id="aiBtn" aria-label="Consultar ángulo sugerido por el modelo">🤖 Preguntar al modelo por el mejor ángulo</button>
+        </div>
+      </div>
+
+      <div class="panel canvas-panel">
+        <canvas id="stage" aria-label="Área de simulación gráfica del vuelo del cohete"></canvas>
+        <div class="telemetry">
+          <div class="cell"><div class="label" id="lblApogee">Apogeo</div><div class="value" id="tApogee">— m</div></div>
+          <div class="cell"><div class="label" id="lblRange">Alcance</div><div class="value" id="tRange">— m</div></div>
+          <div class="cell"><div class="label" id="lblVel">Vel. máxima</div><div class="value" id="tVel">— m/s</div></div>
+          <div class="cell"><div class="label" id="lblTime">Tiempo de vuelo</div><div class="value" id="tTime">— s</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-card" id="aiCard">
+      <div class="ai-head">
+        <span class="ai-badge">MODELO DE VUELO</span>
+        <span class="muted" id="aiConfidence">confianza del modelo: 96%</span>
+      </div>
+      <p><strong>Ángulo recomendado: 45°</strong> — según el modelo ideal, este ángulo maximiza el alcance.</p>
+      <p class="muted">El cálculo se basa en las ecuaciones clásicas de tiro parabólico.</p>
+      <button id="revealBtn">¿Qué información no consideró el modelo? ▾</button>
+      <div id="caveat">
+        El modelo ideal ignora la fricción del aire. En la vida real, el arrastre frena más al cohete mientras más tiempo y más rápido vuela, y eso cambia cuál ángulo da el mejor resultado.
+        Prueba a subir el arrastre del aire y lanza con distintos ángulos: <strong>¿45° sigue siendo el mejor, o hay uno más bajo que gana?</strong>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:18px;">
+      <h2>Bitácora de lanzamientos</h2>
+      <div class="table-responsive">
+        <table id="log">
+          <thead><tr><th>#</th><th>Ángulo</th><th>Arrastre</th><th>Apogeo</th><th>Alcance</th><th>vs. sugerencia</th></tr></thead>
+          <tbody id="logBody">
+            <tr><td colspan="6" class="muted" style="font-family:'Space Grotesk';">Aún no hay lanzamientos. Lanza tu primer cohete arriba.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    import '../scripts/simulador_cohetes.js';
+  </script>
+</SiteLayout>

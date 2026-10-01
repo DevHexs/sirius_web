@@ -5,7 +5,7 @@ Thumbs.db
 *.swp
 *~
 
-# Dependencias y salidas generadas si se adopta Astro u otra herramienta Node
+# Dependencias y salidas generadas de Astro
 node_modules/
 .astro/
 dist/
