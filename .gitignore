@@ -1,0 +1,18 @@
+# Sistema operativo y editor local
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*~
+
+# Dependencias y salidas generadas si se adopta Astro u otra herramienta Node
+node_modules/
+.astro/
+dist/
+coverage/
+*.log
+
+# Configuración privada; conservar ejemplos documentados
+.env
+.env.*
+!.env.example
